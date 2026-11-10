@@ -5,5 +5,6 @@ Current implementation and contracts for `swooping-mods/moon-sweepers-api`.
 | Spec | Owning source | Read when |
 |---|---|---|
 | [API and package boundaries](contracts.md) | `include/`, `python/`, `tools/check.py`, `tools/export.py` | Changing ABI, package rules, author tools, SDK snapshots or CI |
+| [Building definitions and saved identity](building-api.md) | `include/moon_sweepers/build_menu/`, `python/moon_mod_api/build_items.py`, `docs/registries/buildings.json` | Adding buildable items, reserving IDs or changing cross-mod save contracts |
 
 The usage guides are under `docs/`. Rollout choices belong outside specs.

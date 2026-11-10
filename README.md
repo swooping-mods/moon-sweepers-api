@@ -8,6 +8,7 @@ The API is a small SDK, not a web service. It owns the hook ABI, package format,
 - `include/moon_sweepers/`: standalone Windows AMD64 C11 headers.
 - `python/moon_mod_api/`: standard-library package validation, resolution and authoring.
 - [Hook guide](docs/hooks.md), [package contract](docs/packages.md), [mod CI](docs/mod-ci.md).
+- [Building API and stable IDs](docs/building-api.md), [shared API conventions](docs/conventions.md).
 - [Desktop loader and release instructions](https://github.com/swooping-mods/moon-sweepers-mod-loader/blob/main/CONTRIBUTING.md).
 
 Use installed Python 3.11+; no dependency installation is required:
