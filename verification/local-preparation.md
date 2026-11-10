@@ -435,3 +435,16 @@ library/default writes occurred. Workshop loader tests pass **47**. Its interim
 34-file Python/docs pin verifies and relocated SDK isolation passes; the combined
 native-source pin gate detects the interaction owner's ongoing `dispatch.h`
 edits and remains pending a stable reviewed source checkpoint.
+
+
+The later source-inventory reconciliation inspects all **59** authoring
+manifests (57 native, two companions), recording exact metadata hashes in
+`artifacts/generalization-review/inventory-sdk06.json`. The central study and
+project research snapshot now distinguish the original 52-mod baseline from
+seven later providers/consumers. Existing local link targets pass **95** checks;
+no external sources or code are acquired. This metadata reconciliation does not
+transfer qualified library results to in-progress source changes.
+
+The standalone complete **101-test** gate also passes after extending host
+capability refusal and cached-selection replacement coverage to both installed
+and private modes. Neither rejection path copies or deploys game files.

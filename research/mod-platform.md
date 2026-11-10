@@ -67,3 +67,15 @@ managed consumer readiness and their bounded verification are indexed by
 inventory and study evidence are retained rather than relabeled as current
 qualification. The original external precedents inform the component split;
 they do not qualify this implementation's game behavior.
+
+## Later source reconciliation
+
+Source metadata now contains 59 authoring mods (57 native, two companions),
+including separate Vehicle Control, Map Control and Test providers plus GPS,
+Edge Cruise, Efficient Robots and Test Scenarios consumers. The original
+52-mod snapshot above remains historical. The [central inventory](../../research/studies/moon-sweepers-mod-platform-2026-11-10/inventory.md#source-inventory-reconciliation--sdk-06)
+records all seven additions and their explicit dependency/API ownership.
+A read-only SDK 0.6 check verifies all 58 normal-library packages and resolves
+all 55 selections against the unchanged delivered runtime. Source metadata and
+qualified library packages remain separate snapshots; new interaction and
+power-node work does not inherit that game's evidence.
