@@ -523,3 +523,36 @@ inputs and before/after logs are bound by workshop
 `artifacts/api-generalization/host-capabilities-sdk06/bounded-input-fix.json`.
 The old d4a628 startup/hook-ready attempts do not qualify this later candidate's
 loaded-world behavior; its interaction owner is rebuilding for a separate proof.
+
+## Framework-owned late presentation candidate
+
+Hints 0.2 keeps its original ABI1/24 table and adds a separate presentation
+ABI1/24 service, capacity32. Its provider admits late callbacks immediately
+before native legend composition. Existing consumers keep their original API
+requirement; explicit additional requirements survive metadata refresh. The
+core registry, native startup transaction and runtime ABI are unchanged.
+
+The source-only managed wrapper caches typed delegates, roots active callback
+state until successful unsubscribe, contains callback exceptions and rejects
+foreign-thread disposal. Twenty-nine focused workshop checks pass, including
+actual production composition and C# reverse callbacks, forced GC and a warmed
+10,000-call zero-allocation batch. The old registry and ownership restoration
+checks also pass under Clang/GCC ASan/UBSan. Full canonical API gate44 and
+standalone loader gate113 pass with no skipped/excluded checks. Exact logs and
+candidate identities are in workshop
+`artifacts/api-generalization/hints-presentation/verification.json`.
+
+Native candidate DLL2c8df144... and managed probe88e0a816... are isolated from
+the delivered library/runtime. Private preparation succeeds with exact profile
+and prefix restoration, without starting a game. The first loaded attempt failed
+in the original diagnostic's TMP text scanner before any callback was observed;
+the scanner has been corrected and rebuilt. A subsequent shared-game-lock
+refusal started no game. Both failures remain retained; neither establishes or
+disproves the provider's loaded-world legend contract. World presentation,
+controller/co-op behavior and game frame-time effects remain unqualified.
+
+An offline check using the actual archived Hints0.1.3, new0.2 and original
+managed consumer packages rejects 0.1.3 for its missing presentation service;
+0.2 resolves in provider-before-consumer order. This checks the independently
+declared service requirement, not just a package version comparison. Receipt:
+workshop `artifacts/api-generalization/hints-presentation/package-compatibility.json`.

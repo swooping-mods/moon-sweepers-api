@@ -7,7 +7,7 @@ the friend's MarsSweepers and other authors; keep each mod independent and
 frameworks as ordinary mods between game integration and content. Assess a
 conventional API/loader split and efficient adapter-based implementation.
 
-Status: SDK 0.5 implements shared native/managed package validation,
+Status: SDK 0.6.1 implements shared native/managed package validation,
 provider-neutral interface metadata, public runtime/input/camera contracts and
 a deterministic native startup plan. The standalone loader implements the
 registry and platform adapters. The workshop consumes pinned canonical sources;
@@ -188,6 +188,8 @@ loaded-world/co-op/performance stages in the table.
 - The framework-owned Hints wrapper supplies the first domain bridge, with
   host parser/registry, lifetime and allocation checks. Its actual native legend
   admission still requires a concrete same-frame consumer qualification.
+  A separate late presentation service now supplies the provider-owned ordering
+  and callback lifetime contract; the core startup registry remains sealed.
   Loading unchanged Mars does not require rewriting it to use every framework.
 - Determine the shared event/input/UI-allocation and native/managed patch
   composition scope from concrete consumers. A universal detour engine, hot
