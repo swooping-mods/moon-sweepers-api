@@ -556,3 +556,22 @@ managed consumer packages rejects 0.1.3 for its missing presentation service;
 0.2 resolves in provider-before-consumer order. This checks the independently
 declared service requirement, not just a package version comparison. Receipt:
 workshop `artifacts/api-generalization/hints-presentation/package-compatibility.json`.
+
+### Exact original Hints world proof
+
+Workshop run `05381177cfc64588be5d20640943889d` passes the complete original
+managed Hints scenario. Exact nativeDLL2c8df144/packagea04efed4 and managed
+consumer88e0a816 use frozen native runtime370919/adapter2132c03e. There are0
+callbacks at the main menu. Forced-GC subscription, rendered native label show,
+disable restoration, re-enable and successful unsubscribe restoration pass.
+Actual native QuitToDesktop exits0. Plugin/runtime errors are empty; source,
+profile and prefix gates pass and owned launcher/display/group PIDs are absent.
+All four functional screenshots were inspected. Earlier failures remain failed.
+
+The latest workshop suite passes40 and final native-client/export checks pass8;
+the independent Hints SDK verifies40 headers and3 managed sources. Exact74
+producer-input bytes are sealed under the same verification index. A later CPU
+source rebuild37fad0 differs after the public client header extension and is
+explicitly unqualified; it does not replace the exact qualified2c8 archive.
+Normal delivered51549/receipt65f280 are untouched. All-mod closures, controllers,
+co-op, arbitrary managed plugins and game FPS are not qualified by this proof.

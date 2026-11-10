@@ -16,8 +16,8 @@ SDKs. Optional standalone managed deployment is implemented in private-copy
 mode. SDK 0.5 adds a source-only managed consumer connector and explicit native
 readiness, while frameworks own their typed wrappers. The standalone runtime
 passes an independent native-provider/managed-consumer startup test. Domain
-loaded-world/Hints presentation and broader gameplay/performance qualification
-remain separate. Workshop native readiness integration also passes its own private startup
+Hints presentation passes an exact original managed-consumer world proof;
+broader gameplay/performance qualification remains separate. Workshop native readiness integration also passes its own private startup
 proof using its nested SDK/loader. SDK 0.6 adds generic host-adapter admission
 through native package v7; individual adapters retain their own ABI.
 Current behavior is recorded in [contracts](../specs/contracts.md),
@@ -186,8 +186,9 @@ loaded-world/co-op/performance stages in the table.
 - Separate framework packages/SDKs are required by the objective; one repository
   per framework is a release/ownership choice, not a technical prerequisite.
 - The framework-owned Hints wrapper supplies the first domain bridge, with
-  host parser/registry, lifetime and allocation checks. Its actual native legend
-  admission still requires a concrete same-frame consumer qualification.
+  host parser/registry, lifetime and allocation checks. Its original managed
+  consumer now passes native legend admission, disable/re-enable/unsubscribe
+  restoration and normal exit in a rendered world.
   A separate late presentation service now supplies the provider-owned ordering
   and callback lifetime contract; the core startup registry remains sealed.
   Loading unchanged Mars does not require rewriting it to use every framework.

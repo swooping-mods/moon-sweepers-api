@@ -86,9 +86,11 @@ The workshop Hints 0.2 candidate demonstrates a separately versioned late
 presentation service without a core SDK table change. Its framework-owned
 C# wrapper roots active callbacks, contains exceptions and releases callback
 state only after admitted unsubscribe. Production composition/gate/capacity,
-reverse FFI, forced-GC and zero-allocation host checks pass. This does not yet
-qualify its loaded-world native legend. Existing Hints API consumers do not
-acquire a new mandatory presentation requirement.
+reverse FFI, forced-GC and zero-allocation host checks pass. Its original managed
+consumer also passes an exact rendered Steam world proof, including native
+legend restoration/unsubscribe and normal exit. Other consumers, controllers,
+co-op and full-game performance remain separate qualification. Existing Hints
+API consumers do not acquire a new mandatory presentation requirement.
 
 ## AI Inferred
 
