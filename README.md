@@ -13,6 +13,7 @@ The API is a small SDK, not a web service. It owns the hook ABI, package format,
 - [Mod-provided interfaces](docs/interfaces.md): independent provider requirements, ABI/size/capacity checks and optional integration.
 - [Native runtime services](docs/runtime-services.md): owner-scoped publication, cached typed calls, frames and shared input/camera contracts.
 - [Managed framework consumers](docs/managed-services.md): explicit native readiness and independently owned typed wrappers.
+- [Interaction adapter](docs/interaction.md): explicit exclusive actions over the unchanged input table.
 - [Generalization proposal](design/mod-platform.md) and [research evidence](research/mod-platform.md): planned runtime/adapter boundaries and independent framework SDKs; not implemented API guarantees.
 - [Desktop loader and release instructions](https://github.com/swooping-mods/moon-sweepers-mod-loader/blob/main/CONTRIBUTING.md).
 

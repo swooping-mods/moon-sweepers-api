@@ -38,9 +38,14 @@ class RuntimePlanChecks(unittest.TestCase):
         source = '''#include "moon_sweepers/runtime.h"
 #include "moon_sweepers/input.h"
 #include "moon_sweepers/camera.h"
+#include "moon_sweepers/interaction.h"
 _Static_assert(sizeof(MoonServicePublicationV1)==32,"base");
 _Static_assert(sizeof(MoonServicePublicationLimitsV1)==48,"capacities");
-int main(void){return moon_runtime_api_valid(0)||moon_input_api_valid(0)||moon_camera_api_valid(0);}
+_Static_assert(sizeof(MoonInputApiV1)==64,"unchanged input");
+_Static_assert(sizeof(MoonInteractionApiV1)==32,"interaction table");
+_Static_assert(sizeof(MoonInteractionActionV1)==40,"interaction action");
+_Static_assert(sizeof(MoonInteractionState)==32,"interaction state");
+int main(void){return moon_runtime_api_valid(0)||moon_input_api_valid(0)||moon_camera_api_valid(0)||moon_interaction_api_valid(0);}
 '''
         with tempfile.TemporaryDirectory() as directory:
             path = Path(directory) / "consumer.c"

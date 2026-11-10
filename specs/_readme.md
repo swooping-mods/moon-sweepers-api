@@ -7,6 +7,7 @@ it does not extend the implemented contracts listed below.
 
 | Spec | Owning source | Read when |
 |---|---|---|
+| [Interaction adapter](interaction.md) | `include/moon_sweepers/{interaction,interaction_registry,input_host}.h` | Changing exclusive interaction arbitration, physical capture, actor admission or adapter boundaries |
 | [Mod-provided interface contracts](interfaces.md) | `python/moon_mod_api/{interfaces,runtimes,packages}.py` | Changing backend support, framework discovery metadata, optional API dependencies or provider capabilities |
 | [Native runtime services](runtime-services.md) | `include/moon_sweepers/{services,input,camera}*.h`, `python/moon_mod_api/runtime_plan.py` | Changing publication, typed frames, shared input/camera helpers or the native startup plan |
 | [API and package boundaries](contracts.md) | `include/`, `python/`, `tools/check.py`, `tools/export.py` | Changing ABI, package rules, author tools, SDK snapshots or CI |

@@ -56,8 +56,10 @@ No allocation or name lookup is added to callback dispatch.
 configure, cooperative channel claim and raw-key query). `input_registry.h` and
 `input_host.h` provide the portable bounded implementation: 512 actions, 32
 claims, host-supplied key polling. Access is serialized on the game thread;
-callers provide focus/typing/menu/world/authority gates. Actions never suppress
-vanilla input. Platform polling remains in the loader.
+callers provide focus/typing/menu/world/authority gates. Input actions themselves do not consume
+keys. The separate [interaction adapter](interaction.md) may mask delivery of
+captured keys without changing the InputApiV1 layout. Platform polling remains
+in the loader.
 Default registration preserves the first observed press. A changed override
 inhibits an already-held new chord until release; an invalid initial override
 retains the valid default binding and display label.

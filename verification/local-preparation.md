@@ -448,3 +448,42 @@ transfer qualified library results to in-progress source changes.
 The standalone complete **101-test** gate also passes after extending host
 capability refusal and cached-selection replacement coverage to both installed
 and private modes. Neither rejection path copies or deploys game files.
+
+### Public interaction contracts and canonical runtime mirror
+
+The checked workshop source checkpoint supplies the portable Interaction ABI 1
+contract: table 32 bytes, action 40, state 32 and take(handle, actor). SDK 0.6
+retains InputApiV1's 64-byte ABI 1 table and separates exclusive interaction
+admission from observational input. Public docs describe borrowed actors, input
+epochs, domain gates, copied names and resident callbacks.
+
+The complete API gate passes **44 tests**, no skips/exclusions, with actual
+Clang/GCC ASan/UBSan interaction arbitration, snapshot/capture/modifier/release,
+rollback and capacity cases plus host/Windows AMD64 layouts. Initial strict GCC
+compilation exposed misleading indentation in three statement boundaries; line
+breaks fix the warnings without changing behavior. No warning suppression is
+needed for these exported helpers.
+
+The final source snapshot `artifacts/registry-sdk-0.6.0-interaction` contains
+**37 files**, explicitly pinned in both loaders. The workshop expanded runtime
+source pin verifies **16 headers**. Its shared-pin checks pass 2; production
+proxy/interaction checks pass 3, including a real Unity hit binding fixture that
+starts with zero RaycastHit size; startup-plan checks pass 10. Its new current
+native adapter is host-qualified, not yet gameplay-qualified by this record.
+
+Review caught a proposed implicit local-actor filter on every typed frame
+subscriber. That changed unrelated callbacks when another mod enabled
+interactions, violating the existing each-observed-walker contract. The mirror
+omits that filter while preserving interaction preflight and actor-specific take.
+Production regression fixtures in both loader lanes now deliver callbacks for
+two distinct walkers with an input adapter active. Domain first-frame-latch
+admission remains owned by Unit/Sound implementations.
+
+The standalone complete gate passes **102 tests**, no skips/exclusions, and its
+new source bundle passes strict freestanding Windows AMD64 compile/link/export
+checks. Installed-game bootstrap behavior is preserved during the mirror. The
+workshop receipt `artifacts/api-generalization/host-capabilities-sdk06/canonical-mirror.json`
+binds the integration checks, expanded pin and intentional adjustments. Common
+source holds are explicitly released. Delivered runtime `51549df4...` and receipt
+`65f2801f...` remain exact; no user library/default seed promotion occurs. New
+interaction engine/world behavior and domain changes require separate receipts.
