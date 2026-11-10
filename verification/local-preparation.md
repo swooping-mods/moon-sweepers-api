@@ -424,3 +424,14 @@ v7 package intake, before-copy refusal, cached selection recheck after runtime
 replacement and production v7 service publication/calls under Clang/GCC
 ASan/UBSan. These checks qualify host admission; the independently owned
 interaction engine adapter is not promoted by this schema change.
+
+
+A read-only workshop audit after the GPS joint import verifies all **58** normal
+library payloads and resolves the exact **55** current selections with SDK 0.6
+against delivered native v1–v6 capabilities. The user state hash remains
+`9498a9dcca171ff574ac73804c5e9e528ebf7e115d6f0104c0c59c6dffee57c1`;
+runtime `51549df4...` and receipt `65f2801f...` remain exact. No preparation or
+library/default writes occurred. Workshop loader tests pass **47**. Its interim
+34-file Python/docs pin verifies and relocated SDK isolation passes; the combined
+native-source pin gate detects the interaction owner's ongoing `dispatch.h`
+edits and remains pending a stable reviewed source checkpoint.
