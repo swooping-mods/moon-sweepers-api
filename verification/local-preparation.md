@@ -575,3 +575,20 @@ source rebuild37fad0 differs after the public client header extension and is
 explicitly unqualified; it does not replace the exact qualified2c8 archive.
 Normal delivered51549/receipt65f280 are untouched. All-mod closures, controllers,
 co-op, arbitrary managed plugins and game FPS are not qualified by this proof.
+
+### Subsequent normal-bundle integration
+
+The owning delivery agent promoted the separately qualified joint55 closure
+using workshop `artifacts/interaction-exclusive/delivery-1794320177754536986.json`,
+SHA256 `8abd2e14d2a1af5923f1f9a60b27090d87bf82e3ec86a814cb4cb27fbb16f5cb`.
+It retains runtime dc89ccf9 and the exact Hints a04efed4/2c8df144 package, all55
+selections and three other library entries. The current core SDK remains the
+38-file snapshot bcc4c3da; the compatibility sdk/v1 subtree has its separate
+28-file map. The independent Hints export remains separate from that core tree.
+No native rebuild, package restamp or game preparation/launch occurred during
+integration. Independent final readback is pending at this record's update.
+
+This later coordinated delivery supersedes earlier statements about retaining
+51549 as the normal default. It does not change the exact runtime370919 scope
+of the original managed Hints world proof; dc89/joint55 has its separate native
+qualification. Frozen candidate SDKs, source exports and receipts are unchanged.
