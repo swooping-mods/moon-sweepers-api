@@ -54,7 +54,10 @@ Default registration preserves the first observed press. A changed override
 inhibits an already-held new chord until release; an invalid initial override
 retains the valid default binding and display label.
 
-`camera.h` owns camera ABI 1 and begin/finish helpers. Its portable registry has
+`camera.h` owns camera ABI 1 and begin/finish helpers. `camera_host.h` owns the
+shared thread-gated host used by the loader and independent native SDKs, with
+an overridable `MOON_CAMERA_THREAD()` query (default GetCurrentThreadId).
+Its portable registry has
 16 exclusive resource claims. The loader observes the game dispatch thread and
 rejects claims before that observation or from another thread. Providers root
 targets and retain snapshots, restore while the claim is held, then release.

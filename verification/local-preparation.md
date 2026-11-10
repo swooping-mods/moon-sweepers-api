@@ -176,3 +176,25 @@ no skips/exclusions. The canonical snapshot is
 the preceding input-qualified snapshot only in that declaration. This does not
 change loader runtime DLL behavior or its recorded hash; distribution content
 and static snapshot checks must use the updated header.
+
+### Portable camera host ownership
+
+Independent framework SDK export review found the native Camera connector still
+included a private loader implementation. Moved that exact thread-gated host
+into public `camera_host.h`; the standalone loader now forwards to it. Only the
+guard/include location changes; implementation bytes from the registry storage
+through all callbacks/table functions match the prior host. The rebuilt runtime
+DLL remains exactly `30ba9036aa3cbb904239bf4251145c24fc6b33f1d62c7b04b553cf8a62c2a054`,
+so the installed-mode owner's six Wine controls still cover the same binary.
+Its previously reviewed atomic implementation boundary is standalone commit
+`78ccced`; the portable-host follow-up is separate.
+
+Final SDK gate: **35 tests pass**; standalone gate: **80 pass**, no skips or
+exclusions. The public host and actual loader camera adapter both execute the
+production exclusivity/thread/restore-retry/capacity harness under Clang/GCC
+ASan/UBSan. Native AMD64 rebuild/export checks pass. The canonical SDK snapshot
+is now `artifacts/registry-sdk-0.4.0-camera-host/snapshot.json` (**32 files**),
+with `*-0.4-camera-host-*` gate/build logs under each project's existing ignored
+generalization verification directory. This supersedes earlier same-version
+local candidates. The framework owner runs its separate relocated-SDK consumer
+and native package checks. No ABI or camera algorithm changed.
