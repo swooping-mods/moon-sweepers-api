@@ -10,8 +10,11 @@ conventional API/loader split and efficient adapter-based implementation.
 Status: SDK 0.4 implements shared native/managed package validation,
 provider-neutral interface metadata, public runtime/input/camera contracts and
 a deterministic native startup plan. The standalone loader implements the
-registry and platform adapters. Workshop/framework migration, managed bridges,
-gameplay and performance qualification remain active work below.
+registry and platform adapters. The workshop consumes pinned canonical sources;
+its frameworks publish ordinary mod-owned interfaces and export independent
+SDKs. Optional standalone managed deployment is implemented in private-copy
+mode. Typed managed bridges and broader gameplay/performance qualification
+remain active work below.
 Current behavior is recorded in [contracts](../specs/contracts.md),
 [interface contracts](../specs/interfaces.md) and
 [building identity](../specs/building-api.md).
@@ -19,13 +22,13 @@ Current behavior is recorded in [contracts](../specs/contracts.md),
 ## Evidence and rationale
 
 The [research snapshot](../research/mod-platform.md) links the central study,
-52-mod inventory, checked source revisions and conventional precedents. The
-initial SDK 0.2 was native/companion only; SDK 0.3 now owns shared managed package
-rules consumed by both loader checkouts. The workshop retains more advanced
-adapter hosting. Frameworks already have separate
-versioned native exports. Public building rules currently know a specific
-framework identity. Repeated framework connectors perform private DLL lookup
-and idempotent startup. The current native hook API is intentionally three
+52-mod inventory, checked source revisions and conventional precedents. At that
+baseline, SDK 0.2 was native/companion only, building rules knew a specific
+framework identity and repeated connectors performed private DLL lookup/startup.
+SDK 0.4 now supplies shared package rules and generic provider contracts consumed
+by both loaders. Native framework consumers use the registry under a recognized
+loader; private startup remains only a legacy modkit fallback. The optional
+managed adapter retains one C# source owner. The native hook API is intentionally three
 specific pre-original hooks, not a general managed patch interface.
 
 ## AI Inferred

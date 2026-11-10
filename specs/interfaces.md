@@ -56,7 +56,9 @@ SDK 0.4 adds runtime, input and camera C contracts while preserving the existing
 hook layouts and game-save format. Loader tests execute independent public-SDK
 provider/consumer calls with the production C registry and startup-plan parser.
 These host checks do not establish native Windows game/world/co-op behavior or
-improved performance. Framework migration and managed bridging remain unfinished.
+improved performance. The workshop's native framework migration and independent
+SDK export have their own checks; this SDK gate does not substitute for them.
+Typed managed bridging remains unfinished.
 
 ## AI Inferred
 

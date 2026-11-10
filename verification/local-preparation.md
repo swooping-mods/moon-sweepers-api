@@ -257,3 +257,55 @@ standalone project's `artifacts/managed-generalization/{intake-reuse,package-che
 and `final-host-check.log`. The managed loaded-game/save/restart test remains
 required; the existing replay currently imports the workshop Service and must
 explicitly exercise the standalone code before that result can be claimed.
+
+### Standalone managed game qualification
+
+That packaged candidate now passes actual private Steam execution through its
+own Python loader and pinned SDK. Workshop commit `db1e2dc` adds the explicit
+`--use-bundle-loader` replay route, selects imports before either module family
+loads, requires an unaliased artifact and private mode, and records/rechecks
+actual source hashes. Seven focused profile/selection checks pass through the
+owning test-cycle runner. A generated original probe icon removes the former
+dependency on a bundled feature mod.
+
+The unchanged source archive `c9040a2c...`, native proxy `cb93b91d...`, adapter
+`2132c03e...` and 32-file numeric-ID SDK are the actual executed closure. In the
+independent `bepinex-api` lane:
+
+- Original managed-only probe `92232054f7bc4ee094e1ed4cfb22c583` passes native
+  object calls, Harmony prefix/postfix/unpatch and injected component lifecycle.
+  The proxy records the empty native plan, managed-only host and load completion.
+- Fresh Mars world `e11433e56cd84f2096b0ae076cce4e40` and second-process replay
+  `d3fb61e5da274a01b326e0310eda1432` pass 27 hooks with zero plugin errors,
+  movement/physics callers, real MarsSessions saves, menu/MARS badge, reload and
+  normal exit. The second process retains directory, gravity 3.71 and seed 19761.
+- Mixed replay `b4f85925b6d04437a8f5131ea23cf7f7` additionally passes two Mars
+  terminal open/close cycles with zero stacking requests, followed by exactly
+  one plain Ctrl+K request. It uses the current native v6 Item Stacking package,
+  SHA-256 `32c2acc4a4cf6ab8cc12f483d1e1806b32432e124a92f34f09a8d36b4d6c3e9f`.
+  Save/reload, retained settings and normal exit pass again. This tests request
+  arbitration, not actual placement of cargo capsules.
+
+Every run restores its private profile/prefix and preserves source game bytes.
+World/reload/badge captures were inspected; renderer is NVIDIA RTX 2080 Ti under
+muted headless Gamescope. The desktop selection, personal saves and frozen
+feature bundles were not changed. Full standalone gate: **96 tests pass**, no
+skips; SDK gate: **36 pass**. The machine index is
+`moon-sweepers-mod-loader/artifacts/managed-generalization/live-qualification.json`,
+beside the two bounded activation-delta reviews and final host log.
+
+The first mixed attempt `19d02d3f690143fda3ae7f9418ceb72d` remains failed: its
+second terminal opening timed out after an observed first open/close cycle.
+The successful retry uses 0.8-second holds and an explicit current native
+package instead of the historical catalog fixture; those changes were not
+isolated as a causal experiment. No observer check was weakened. Artificial
+outdoor teleport staging remains independently failed/unqualified in these
+world runs, as in the earlier adapter campaign.
+
+These are bounded private development tests of the pinned .NET 6.0.7 closure,
+reusing the exact prior intake with its stale-signature/source-equivalence
+limits. There was no dependency download or public release. Native Windows,
+co-op, arbitrary plugins/game profiles, all-catalog combinations and whole-game
+FPS remain unqualified. Hosting alone establishes neither a typed managed
+framework bridge nor cross-backend startup readiness; that part of the
+generalization goal remains active.
