@@ -138,3 +138,30 @@ qualification window. This task ran no game, Wine, native Windows or co-op
 process. Managed bridges, framework-specific end-to-end qualification and
 matched performance measurements remain unfinished. No dependency was acquired,
 source pushed, PR opened or release published. The full goal remains active.
+
+### Final input integration correction
+
+The framework integration review found two stale input-helper behaviors in the
+initial SDK candidate: registering a default chord while held suppressed its
+first press, and a malformed initial override left the display label empty.
+Applied the final owning input-worker correction to the canonical SDK and
+retained its production harness as a public-header regression. Five statement
+line breaks also remove GCC misleading-indentation warnings without changing
+behavior. The shared camera adapter's existing production harness now executes
+against the standalone loader and canonical camera headers as well.
+
+Final gates: **33 SDK tests** and **80 combined standalone loader tests pass**,
+with no skips/exclusions; the native AMD64 build/export check passes. Both input
+and camera harnesses execute under Clang/GCC ASan/UBSan. The final standalone
+bootstrap hash is `30ba9036aa3cbb904239bf4251145c24fc6b33f1d62c7b04b553cf8a62c2a054`.
+The final reviewed **31-file** snapshot is
+`artifacts/registry-sdk-0.4.0-final/snapshot.json`; it supersedes the earlier
+same-version local candidates. Final gate/build logs use `*-0.4-final-*` under
+both projects' `artifacts/generalization-review/`.
+
+The installed-mode owner repeats its Windows package/UI/Wine checks against
+these final bytes before the combined local source commit. Those checks remain
+separate from native Windows gameplay and actual game save/co-op qualification.
+The managed-adapter owner also confirmed that current mixed package ordering
+does not implement cross-backend startup readiness; the design records that
+remaining boundary explicitly.

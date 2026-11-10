@@ -50,6 +50,9 @@ configure, cooperative channel claim and raw-key query). `input_registry.h` and
 claims, host-supplied key polling. Access is serialized on the game thread;
 callers provide focus/typing/menu/world/authority gates. Actions never suppress
 vanilla input. Platform polling remains in the loader.
+Default registration preserves the first observed press. A changed override
+inhibits an already-held new chord until release; an invalid initial override
+retains the valid default binding and display label.
 
 `camera.h` owns camera ABI 1 and begin/finish helpers. Its portable registry has
 16 exclusive resource claims. The loader observes the game dispatch thread and
@@ -93,6 +96,9 @@ Private deployment tests cover actual v6 archives and preservation of unknown
 edits to the deployed plan.
 The public building-client host fixture checks both loader refusal without
 private startup and legacy fallback under Clang/GCC ASan/UBSan.
+The shared production input harness also runs against the exported headers
+under both sanitized compilers, covering initial presses/labels, overrides,
+focus/forbidden-modifier gates, rebind edges and all action/claim capacity bounds.
 
 The standalone loader implements this protocol and exports input/camera tables;
 the workshop migration is coordinated separately. Host tests and cross-builds

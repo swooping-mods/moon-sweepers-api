@@ -44,14 +44,16 @@ static inline int mi_parse(const char *text,MoonInputChord *out){
         char token[32];unsigned n=0;while(text[offset]&&text[offset]!='+'){if(n+1>=sizeof(token))return 0;token[n++]=text[offset++];}token[n]=0;if(!n)return 0;
         int deny=token[0]=='!';const char *name=token+deny;unsigned modifier=mi_modifier(name);
         if(text[offset]=='+'){if(!modifier)return 0;if(deny)chord.forbidden|=modifier;else chord.required|=modifier;offset++;continue;}
-        if(deny||!mi_key(name))return 0;chord.key=mi_key(name);if(chord.required&chord.forbidden)return 0;*out=chord;return 1;
+        if(deny||!mi_key(name))return 0;
+        chord.key=mi_key(name);if(chord.required&chord.forbidden)return 0;*out=chord;return 1;
     }return 0;
 }
 static inline int mi_down(MoonInputRegistry *r,unsigned key){return key&&key<256&&r->key&&r->key(key);}
 static inline int mi_chord_base(MoonInputRegistry *r,const MoonInputChord *c,unsigned modifiers){return mi_down(r,c->key)&&(modifiers&c->required)==c->required;}
 static inline unsigned mi_modifiers(MoonInputRegistry *r){return (mi_down(r,17)?1u:0)|(mi_down(r,16)?2u:0)|(mi_down(r,18)?4u:0);}
 static inline int mi_rebind(MoonInputRegistry *r,unsigned handle,const char *text){
-    if(!handle||handle>r->count)return 0;MoonInputChord chord;char label[MOON_INPUT_LABEL_CAPACITY];
+    if(!handle||handle>r->count)return 0;
+    MoonInputChord chord;char label[MOON_INPUT_LABEL_CAPACITY];
     if(!mi_parse(text,&chord)||!mi_copy(label,sizeof(label),text))return 0;
     MoonInputAction *a=r->actions+handle-1;a->chord=chord;mi_copy(a->label,sizeof(a->label),label);
     a->inhibit=mi_chord_base(r,&chord,mi_modifiers(r));a->previous=a->inhibit;a->held=0;return 1;
@@ -62,10 +64,15 @@ static inline void mi_resolve(MoonInputRegistry *r,unsigned handle){
     else (void)mi_rebind(r,handle,a->defaults);
 }
 static inline unsigned mi_register(MoonInputRegistry *r,const char *name,const char *defaults){
-    if(!mi_name(name))return 0;for(unsigned i=0;i<r->count;i++)if(mi_equal(name,r->actions[i].name))return i+1;
+    if(!mi_name(name))return 0;
+    for(unsigned i=0;i<r->count;i++)if(mi_equal(name,r->actions[i].name))return i+1;
     MoonInputChord chord;if(r->count==MOON_INPUT_ACTION_CAPACITY||!mi_parse(defaults,&chord))return 0;
     MoonInputAction *a=r->actions+r->count;if(!mi_copy(a->defaults,sizeof(a->defaults),defaults))return 0;
-    mi_copy(a->name,sizeof(a->name),name);a->chord=chord;unsigned handle=++r->count;mi_resolve(r,handle);return handle;
+    mi_copy(a->name,sizeof(a->name),name);mi_copy(a->label,sizeof(a->label),defaults);a->chord=chord;unsigned handle=++r->count;
+    /* Default registration preserves a consumer's first observed edge. Only a
+     * configured override is a binding change that inhibits a held new chord. */
+    if(r->resolve){char text[MOON_INPUT_LABEL_CAPACITY]={0};if(r->resolve(a->name,text,sizeof(text))){text[sizeof(text)-1]=0;(void)mi_rebind(r,handle,text);}}
+    return handle;
 }
 static inline MoonInputState mi_sample(MoonInputRegistry *r,unsigned handle,int allowed){
     MoonInputState state={0};if(!handle||handle>r->count)return state;MoonInputAction *a=r->actions+handle-1;unsigned modifiers=mi_modifiers(r);
@@ -77,12 +84,14 @@ static inline MoonInputState mi_sample(MoonInputRegistry *r,unsigned handle,int 
     a->previous=base;a->held=state.held;return state;
 }
 static inline int mi_describe(MoonInputRegistry *r,unsigned index,MoonInputActionInfo *out){
-    if(!out||out->size!=sizeof(*out)||index>=r->count)return 0;MoonInputAction *a=r->actions+index;out->handle=index+1;mi_copy(out->name,sizeof(out->name),a->name);mi_copy(out->binding,sizeof(out->binding),a->label);return 1;
+    if(!out||out->size!=sizeof(*out)||index>=r->count)return 0;
+    MoonInputAction *a=r->actions+index;out->handle=index+1;mi_copy(out->name,sizeof(out->name),a->name);mi_copy(out->binding,sizeof(out->binding),a->label);return 1;
 }
 static inline void mi_configure(MoonInputRegistry *r,MoonInputResolve resolve){r->resolve=resolve;for(unsigned i=0;i<r->count;i++)mi_resolve(r,i+1);}
 static inline int mi_claim(MoonInputRegistry *r,const char *channel,unsigned long long frame,const char *owner){
     char checked_channel[96],checked_owner[96];if(!channel||!owner||!channel[0]||!owner[0]||!mi_copy(checked_channel,sizeof(checked_channel),channel)||!mi_copy(checked_owner,sizeof(checked_owner),owner))return 0;
     MoonInputClaim *empty=0;for(unsigned i=0;i<MOON_INPUT_CLAIM_CAPACITY;i++){MoonInputClaim *c=r->claims+i;if(!c->used){if(!empty)empty=c;continue;}if(mi_equal(c->channel,channel)){if(c->frame==frame)return mi_equal(c->owner,owner);c->frame=frame;mi_copy(c->owner,sizeof(c->owner),owner);return 1;}}
-    if(!empty)return 0;mi_copy(empty->channel,sizeof(empty->channel),channel);mi_copy(empty->owner,sizeof(empty->owner),owner);empty->frame=frame;empty->used=1;return 1;
+    if(!empty)return 0;
+    mi_copy(empty->channel,sizeof(empty->channel),channel);mi_copy(empty->owner,sizeof(empty->owner),owner);empty->frame=frame;empty->used=1;return 1;
 }
 #endif

@@ -102,6 +102,23 @@ roots, main-thread requirements, error handling and session lifetime. Bind once;
 avoid per-frame reflection, service-name lookup or JSON conversion across the
 language boundary. Do not make native mods pay for an unused managed host.
 
+The existing managed adapter remains one source implementation in the workshop's
+`runtime/bepinex/`. Its checked builder can attach an explicit receipt plus
+runtime files; a desktop integration should consume that provider rather than
+copy or reimplement its C# generator/layout/repair code. Retain its complete
+screened input hashes, notices/source archives and disabled-download settings.
+The qualified profile is Moon Sweepers Steam 1.0.5 / Unity 6000.6 / IL2CPP 108;
+other profiles and the pinned development runtime need separate qualification.
+The standalone loader currently refuses managed hosting explicitly.
+
+Current mixed package dependency ordering establishes selection closure, not a
+cross-backend startup rendezvous. Native ModStart and upstream BepInEx plugin
+startup are independently bootstrapped; package dependencies are not translated
+into BepInDependency attributes. Cross-backend startup/service dependencies need
+an explicit readiness protocol and mixed lifecycle qualification before they
+can be advertised. The native registry and existing metadata-only mixed graph
+checks do not provide that protocol.
+
 Mars remains an independent external mod, with its original DLL, namespace,
 gameplay, data and optional exact-version compatibility companion. It requires
 Shop/Sound/etc. only when its author chooses an integration. New authors get the
