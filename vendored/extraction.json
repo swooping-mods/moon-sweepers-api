@@ -1,0 +1,15 @@
+{
+  "schema": "moon-source-extraction/v1",
+  "source_repository": "moon-sweepers-modding",
+  "source_head": "7f6bbc3807b1fbb59ce9bf96d427f8a3366753e4",
+  "basis": "Selected working-tree bytes; this preparation does not carry source history or local artifacts",
+  "source_files": {
+    "loader/moonloader/packages.py": "dbab475f96d82fdda36451655573b93cbfeaef00657ff11d1ba4c8c139e1fded",
+    "loader/moonloader/storage.py": "9fd449a4b142015a1479768c2e57890b5ee385cad7f950edb046ed8bb2a35bc6",
+    "loader/pack_mod.py": "260c062c41221ab62bf62976a78e5910b4d721d567336701d741207c533ffdc2",
+    "runtime/sdk/README.md": "6b590506c918ae3b043b46b32646231f78e6ac88352d0d93172a0753feee687b",
+    "runtime/sdk/context.h": "6c84145cc761550c4943aa10c52242a538e92243f79a1b20c65b6a4ef9e82605",
+    "runtime/sdk/hooks.h": "7c006f1254dd6a130f56dac499ba8196fb84ee4883443ee4f12d601534df56ec",
+    "runtime/sdk/vehicle_input.h": "6af332b456ff9fb74e96a6e963a8cf9627bd51a8edca55f07b6e5a829b9da790"
+  }
+}
