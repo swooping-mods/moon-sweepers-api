@@ -362,3 +362,32 @@ It uses only an original arithmetic diagnostic and the screened optional host;
 its pending bounded game proof does not qualify Hints UI or borrow/live-object
 admission. The normal delivered runtime `51549df4...`, Shop candidate and user
 library/default seeds are preserved during GPS's separate proof/import hold.
+
+
+The separate live native/managed startup candidate subsequently **passes** at
+workshop run `0d29a1c5a6d343a0841a50b33b9d1bab`. Its standalone archive is
+`3d052bd99dbdf1572fb4b76d09216a8fe92cdc8349d3bd1efc34cc594921a2c9`,
+using runtime b36 and the unchanged screened adapter 2132. Native events record
+ordinary provider commit and runtime-services-ready. The managed consumer sees
+Ready, obtains typed result 42, survives forced GC and executes exactly 10,000
+native calls with zero current-thread managed allocation in that batch. The
+original managed interop/component/prefix-postfix/restoration probe also passes.
+Actual initial state was already Ready, so real Pending timing is not claimed;
+that branch remains host-tested. This headless startup diagnostic establishes
+neither loaded-world/save behavior on b36 nor same-frame Hints presentation.
+The owned process is intentionally stopped after observables; no normal-exit
+claim is made. Prefix/profile/source/loader/SDK/driver/probe preservation and
+process-group cleanup pass, and the queue was explicitly released to GPS.
+
+Exact receipts and bounded limits are retained in the workshop's
+`artifacts/api-generalization/managed-bridge-sdk05/live-qualification.json`.
+Its frozen default native runtime still lacks the new readiness export; the
+workshop source/preparation gate refuses opted-in consumers until a separately
+reviewed source sync/runtime upgrade. No frozen default or user library import
+is performed by this bridge qualification.
+
+
+A final standalone host gate passes **99 tests**, zero skips/exclusions, adding
+an actual production seal/readiness check for a managed-only empty native plan.
+This covers the distinct no-native-ModStart startup path without adding another
+game run to the released slot. The b36 production runtime bytes are unchanged.
