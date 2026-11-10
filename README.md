@@ -1,14 +1,14 @@
 # Moon Sweepers API
 
 Versioned C mod contracts and offline `.msmod` package tools for Moon Sweepers.
-Target repository: `swooping-mods/moon-sweepers-api`. This is a local preparation; the organization repository has not been created by this task.
+Repository: [swooping-mods/moon-sweepers-api](https://github.com/swooping-mods/moon-sweepers-api). The reviewed source is hosted privately on GitHub.
 
 The API is a small SDK, not a web service. It owns the hook ABI, package format, integrity checks, dependency ordering and package authoring. The desktop loader implements the ABI. Shop, Equipment, Vehicle, Sound and other gameplay frameworks remain independently versioned mods.
 
 - `include/moon_sweepers/`: standalone Windows AMD64 C11 headers.
 - `python/moon_mod_api/`: standard-library package validation, resolution and authoring.
 - [Hook guide](docs/hooks.md), [package contract](docs/packages.md), [mod CI](docs/mod-ci.md).
-- [Repository split and release flow](https://github.com/swooping-mods): intended organization; the detailed local proposal is in the loader's `design/repository-split.md`.
+- [Repository split and release flow](https://github.com/swooping-mods/moon-sweepers-mod-loader/blob/main/design/repository-split.md).
 
 Use installed Python 3.11+; no dependency installation is required:
 
