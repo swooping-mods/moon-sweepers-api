@@ -11,6 +11,7 @@ The API is a small SDK, not a web service. It owns the hook ABI, package format,
 - [Hook guide](docs/hooks.md), [package contract](docs/packages.md), [mod CI](docs/mod-ci.md).
 - [Building API and stable IDs](docs/building-api.md), [shared API conventions](docs/conventions.md).
 - [Mod-provided interfaces](docs/interfaces.md): independent provider requirements, ABI/size/capacity checks and optional integration.
+- [Independent native authoring](docs/native-authoring.md): API, loader adapter and per-mod source ownership.
 - [Native runtime services](docs/runtime-services.md): owner-scoped publication, cached typed calls, frames and shared input/camera contracts.
 - [Managed framework consumers](docs/managed-services.md): explicit native readiness and independently owned typed wrappers.
 - [Interaction adapter](docs/interaction.md): explicit exclusive actions over the unchanged input table.
