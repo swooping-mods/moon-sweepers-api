@@ -309,3 +309,56 @@ co-op, arbitrary plugins/game profiles, all-catalog combinations and whole-game
 FPS remain unqualified. Hosting alone establishes neither a typed managed
 framework bridge nor cross-backend startup readiness; that part of the
 generalization goal remains active.
+
+
+## SDK 0.5 managed native-service consumers — 2026-11-10
+
+SDK 0.5 adds a provider-neutral source C# connector and explicit native startup
+readiness without changing the frozen 40-byte runtime table. Managed packages
+may declare native `requires_apis` with runtime API ABI 1; native publication
+remains owned by dependency-ordered native v6 ModStart. Selection/preparation
+require target readiness ABI 1. The connector only inspects the resident loader,
+returns pending without lookup and caches domain tables/delegates after Ready.
+Framework-specific wrappers remain with their ordinary owning mods.
+
+The complete API gate passes **38 tests**, zero skips/exclusions, with installed
+`MOON_API_DOTNET` explicitly set. Actual compiled C# to C checks cover missing
+exports, ABI/size/null-function refusal, pending/failed/unknown readiness,
+numeric owners and service grammar, real typed results and delegate lifetime
+through forced GC and 10,000 calls. The first managed manifest fixture retained
+native-only hook markers; removing those fixture fields corrected its validation
+failure. No SDK implementation relaxation was needed for that failure.
+
+Snapshot `artifacts/registry-sdk-0.5.0-managed-consumers` contains **34 files**;
+both standalone and workshop consumers explicitly verify the same pin.
+The standalone complete gate passes **98 tests**, zero skips/exclusions,
+including production C startup readiness after owner commit/hook installation
+and refusal before game copying when readiness capability is absent, invalid
+or replaced after selection. Strict AMD64 compile/link/export checks pass.
+Its new runtime is `b36b175e623d018c920a3c8153074af6da42ea1452094a531e78d3d2592620e0`.
+The previous qualified runtime and managed archive remain historical exact
+candidates; their game results are not transferred to this one.
+
+The workshop's framework-owned Hints C# wrapper compiles from a relocated source
+export against the native production parser/registry under Clang and GCC. Actual
+calls cover UTF-8, copied input, native frame expiry, wrong-thread refusal,
+independent keys, disposal, stable-slot capacity and forced GC. A warmed host
+batch of 10,000 Publish calls allocates zero current-thread managed bytes.
+Compilation against retained Windows .NET 6 metadata also passes. An initial
+metadata compile accidentally included a native runtime DLL; filtering by the
+PE CLI directory corrected that tooling input error. These results qualify
+host FFI/lifetimes, not same-frame Unity hint presentation or FPS.
+
+The source exporter now retains public C headers plus explicitly public managed
+source roots. Five exporter tests, thirteen relocated strict C consumers, one
+compiled managed fixture and **47 workshop loader tests** pass. Export aliases,
+private siblings and source additions during sealing reject. The new export has
+73 headers across ten frameworks and two C# files. No .NET installation is
+required to export or compile C-only consumers.
+
+A separate private native-provider/managed-consumer game startup candidate is
+prepared under the workshop's `artifacts/api-generalization/managed-bridge-sdk05`.
+It uses only an original arithmetic diagnostic and the screened optional host;
+its pending bounded game proof does not qualify Hints UI or borrow/live-object
+admission. The normal delivered runtime `51549df4...`, Shop candidate and user
+library/default seeds are preserved during GPS's separate proof/import hold.

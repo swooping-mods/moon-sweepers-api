@@ -88,6 +88,24 @@ class InterfaceChecks(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "unavailable"):
             self.resolve(values)
 
+    def test_managed_consumer_binds_native_contracts_without_publishing(self):
+        library, feature = provider(), consumer()
+        feature.update(kind='bepinex-il2cpp', abi='BepInEx.IL2CPP/6-be791',
+                       bepinex={'guid':'another.author.feature','data_root':'AnotherAuthor'})
+        for native_only in ('shared_claims', 'hook_framework_abi'):
+            feature.pop(native_only)
+        packages.validate(feature)
+        values={p['id']:p for p in (feature,library)}
+        self.assertEqual(self.resolve(values),[library['id'],feature['id']])
+        with self.assertRaisesRegex(ValueError,'readiness ABI'):
+            packages.resolve(values,list(values),library['game']['hashes'],
+                             runtime_api_abi=1,runtime_readiness_abi=0)
+        self.assertEqual(packages.resolve(values,list(values),library['game']['hashes'],
+                         runtime_api_abi=1,runtime_readiness_abi=1),[library['id'],feature['id']])
+        feature['provides']={feature['id']+'.managed':{'abi':1,'size':16}}
+        with self.assertRaisesRegex(ValueError,'cannot publish'):
+            packages.validate(feature)
+
     def test_optional_interface_cycle_is_diagnosed(self):
         a, b = provider("author-a"), provider("author-b")
         for current, other in ((a, b), (b, a)):

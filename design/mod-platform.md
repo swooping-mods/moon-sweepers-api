@@ -7,14 +7,15 @@ the friend's MarsSweepers and other authors; keep each mod independent and
 frameworks as ordinary mods between game integration and content. Assess a
 conventional API/loader split and efficient adapter-based implementation.
 
-Status: SDK 0.4 implements shared native/managed package validation,
+Status: SDK 0.5 implements shared native/managed package validation,
 provider-neutral interface metadata, public runtime/input/camera contracts and
 a deterministic native startup plan. The standalone loader implements the
 registry and platform adapters. The workshop consumes pinned canonical sources;
 its frameworks publish ordinary mod-owned interfaces and export independent
 SDKs. Optional standalone managed deployment is implemented in private-copy
-mode. Typed managed bridges and broader gameplay/performance qualification
-remain active work below.
+mode. SDK 0.5 adds a source-only managed consumer connector and explicit native
+readiness, while frameworks own their typed wrappers. Loaded-game bridge
+qualification and broader gameplay/performance qualification remain separate.
 Current behavior is recorded in [contracts](../specs/contracts.md),
 [interface contracts](../specs/interfaces.md) and
 [building identity](../specs/building-api.md).

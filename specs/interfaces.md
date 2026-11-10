@@ -19,14 +19,18 @@ The owner prefix uses the ordinary package key grammar, including digit-leading
 identities; service suffix segments retain their letter-leading grammar.
 
 Native package v6 with `runtime_api_abi: 1` marks a package requiring the shared runtime interface
-protocol. SDK 0.4 supplies the C publication/lookup/frame contracts and native
+protocol. SDK 0.5 supplies the C publication/lookup/frame contracts and native
 startup plan; the standalone loader implements them. Metadata alone never
 publishes a table: [runtime services](runtime-services.md) requires actual
 publication to match the deployed declarations before provider startup commits.
-Consumers reject unsupported runtime requirements before deployment. Managed
-host sequencing and cross-language wrappers still need their own implementation
-and qualification. The reviewed managed backend remains available for ordinary
-plugins; it cannot yet declare native interface metadata. Native v1–v5 packages
+Consumers reject unsupported runtime requirements before deployment. SDK 0.5
+also permits the reviewed managed backend to declare native API requirements
+with `runtime_api_abi: 1`; managed packages cannot publish native tables. A target
+must advertise native readiness ABI 1 before deploying this opt-in consumer.
+The source-only C# `RuntimeClient` checks the resident loader/table exports,
+waits without blocking for Ready and performs cached native lookup. It does not
+order arbitrary BepInEx Load methods or register managed callbacks during native
+startup. Domain wrappers remain owned and versioned by each framework. Native v1–v5 packages
 also cannot opt into that metadata: requiring v6 makes old loaders reject it.
 
 `build_items.py` accepts an explicit `build_api` referencing a mandatory API
@@ -58,7 +62,11 @@ provider/consumer calls with the production C registry and startup-plan parser.
 These host checks do not establish native Windows game/world/co-op behavior or
 improved performance. The workshop's native framework migration and independent
 SDK export have their own checks; this SDK gate does not substitute for them.
-Typed managed bridging remains unfinished.
+The optional compiled managed fixture exercises actual C# to C lookup and typed
+calls, readiness/ABI refusal, identity bounds and GC lifetime. It requires an
+already installed compiler/runtime and explicitly skips without one. Actual
+managed framework presentation/game-thread admission remains separate
+qualification; a successful FFI call alone does not establish those gates.
 
 ## AI Inferred
 

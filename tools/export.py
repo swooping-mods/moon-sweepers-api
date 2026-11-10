@@ -8,12 +8,12 @@ import shutil
 import zipfile
 
 ROOT = Path(__file__).resolve().parents[1]
-VERSION = "0.4.0"
+VERSION = "0.5.0"
 
 
 def payload():
     return {p.relative_to(ROOT).as_posix(): p.read_bytes()
-            for folder in ("include", "python", "docs")
+            for folder in ("include", "python", "managed", "docs")
             for p in sorted((ROOT / folder).rglob("*"))
             if p.is_file() and "__pycache__" not in p.parts and p.suffix != ".pyc"}
 

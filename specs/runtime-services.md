@@ -8,12 +8,20 @@ owns executable hosting and platform/game adapters.
 
 ## Current implementation
 
-SDK 0.4 adds `services.h` (`runtime.h` is a forwarding include). The AMD64 C11
+SDK 0.5 supplies `services.h` (`runtime.h` is a forwarding include). The AMD64 C11
 layout is frozen as follows: publication base 32 bytes, capacity extension 48,
 limit entry 16, frame subscription 32, runtime function table 40. The runtime
 export is `MoonLab_GetRuntimeApi_v1`; v6 providers/consumers export
 `MoonLab_RuntimeServicesAbi` returning 1. Existing hook structures/exports stay
 compatible. Domain tables remain opaque pointers with independently owned ABI.
+A separate `MoonLab_RuntimeState_v1` query returns Pending (0), Ready (1) or
+Failed (2) with acquire/release synchronization. Ready follows every native
+owner's commit and successful shared-hook installation; failure is terminal.
+The 40-byte runtime function table and native registration transaction are
+unchanged. The C# `managed/MoonSweepers.Api/RuntimeClient.cs` uses this query
+before consumer lookup. It never loads a dependency, publishes a table or
+registers a managed callback; domains own typed wrappers and stricter call gates.
+
 `services_client.h` supplies the Win32 connection and marker definition in one
 owning bootstrap translation unit. It never loads or starts a dependency. The
 public Build Menu client uses it under a recognized loader and fails closed
@@ -105,7 +113,7 @@ focus/forbidden-modifier gates, rebind edges and all action/claim capacity bound
 
 The standalone loader implements this protocol and exports input/camera tables;
 the workshop migration is coordinated separately. Host tests and cross-builds
-do not qualify a loaded game, save/reload, co-op, a managed bridge or performance.
+do not qualify a loaded game, save/reload, co-op, managed framework presentation or performance.
 Individual framework SDK packaging/migration remains independent work.
 
 ## AI Inferred
