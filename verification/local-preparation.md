@@ -318,7 +318,9 @@ readiness without changing the frozen 40-byte runtime table. Managed packages
 may declare native `requires_apis` with runtime API ABI 1; native publication
 remains owned by dependency-ordered native v6 ModStart. Selection/preparation
 require target readiness ABI 1. The connector only inspects the resident loader,
-returns pending without lookup and caches domain tables/delegates after Ready.
+returns pending without lookup and caches connector delegates. Domain wrappers
+cache their resolved tables/typed delegates after Ready; RuntimeClient.TryFind
+itself repeats native lookup on every call.
 Framework-specific wrappers remain with their ordinary owning mods.
 
 The complete API gate passes **38 tests**, zero skips/exclusions, with installed
@@ -487,3 +489,37 @@ binds the integration checks, expanded pin and intentional adjustments. Common
 source holds are explicitly released. Delivered runtime `51549df4...` and receipt
 `65f2801f...` remain exact; no user library/default seed promotion occurs. New
 interaction engine/world behavior and domain changes require separate receipts.
+
+
+### SDK 0.6.1 bounded polling and held-remap repair
+
+The new native E-held to Q-rebind fixture rejects the previous adapter at its
+still-held E interception assertion under both Clang/GCC. The adapter now keeps
+captured keys in its Unity snapshot through release even when the current chord
+changes. The portable core snapshots registered bindings, modifier aliases and
+latched captures, including a supplied snapshot aliasing its previous down array.
+The table layouts and generic frame contract are unchanged.
+
+The complete API gate passes 44 tests; the loader's concurrently expanded complete gate
+passes 113 tests, no skips/exclusions. The focused workshop pin/proxy/interaction gate
+passes 5, and its additional native polling-budget fixture passes under both
+sanitized compilers. The SDK 0.6.1 pin has 38 files (including the independent
+native-authoring guide added by the adapter transfer); its expanded source pin
+has 43 headers, and the standalone native author SDK verifies 37 headers.
+
+A new opt-in core profiler in the loader executes production code with separate
+translation units, sanitizer/count verification and independent digest parity.
+Both compilers reject the wrong-owner cached-table negative control. Clean timing
+runs are separate. The matched E-only core workload verifies 255 to 4 physical
+polls/epoch at 3, 16 and 128 actions, with unchanged query counts. The actual native
+adapter fixture reports 6 OS polls for its E/mouse/W epoch. Raw receipts and timing
+limits live in the loader's existing runtime-services spec. Small cheap-array
+workloads can incur extra mask construction cost; no FPS or whole-game speedup
+is claimed. Win64 trap, Unity, rendering, managed/mixed and co-op costs remain
+separate acceptance boundaries.
+
+Common source holds are released and frozen 51549 remains unchanged. Exact fix
+inputs and before/after logs are bound by workshop
+`artifacts/api-generalization/host-capabilities-sdk06/bounded-input-fix.json`.
+The old d4a628 startup/hook-ready attempts do not qualify this later candidate's
+loaded-world behavior; its interaction owner is rebuilding for a separate proof.

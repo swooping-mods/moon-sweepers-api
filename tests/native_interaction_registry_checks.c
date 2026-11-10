@@ -5,8 +5,9 @@
 static MoonInteractionRegistry interactions;
 static MoonInputRegistry input;
 static unsigned char keys[256];
+static unsigned polls[256];
 static int query_flip;
-static int poll(unsigned k){return keys[k];}
+static int poll(unsigned k){polls[k]++;return keys[k];}
 typedef struct{int eligible;MoonInteractionTarget target;unsigned calls;} Target;
 static int query(void *context,void *walker,MoonInteractionTarget *target){Target *t=context;assert(walker==(void *)1);t->calls++;*target=t->target;assert(!mir_sample(&interactions,1).selected);if(query_flip){keys['E']=1;query_flip=0;}return t->eligible;}
 static unsigned add(const char *name,const char *binding,unsigned flags,Target *target,unsigned owner){MoonInteractionActionV1 spec={sizeof(spec),flags,name,binding,query,target};return mir_register(&interactions,&input,&spec,owner);}
@@ -50,5 +51,14 @@ int main(void){
  memset(&interactions,0,sizeof(interactions));memset(&input,0,sizeof(input));memset(keys,0,sizeof(keys));input.key=poll;
  unsigned snapshot=add("snapshot.use","E",1,&a,1);query_flip=1;begin(1);assert(!mir_sample(&interactions,snapshot).input.pressed&&!interactions.captured['E']);begin(2);assert(mir_take(&interactions,snapshot));begin(3);assert(interactions.captured['E']);
  for(unsigned n=interactions.count;n<MOON_INTERACTION_CAPACITY;n++){char name[64];snprintf(name,sizeof(name),"capacity.action-%u",n);assert(add(name,"None",0,&a,4));}assert(!add("capacity.overflow","E",0,&a,4));
+ /* Only registered bindings/modifiers and live captures need physical polls.
+  * A supplied snapshot may alias the registry's previous down array. */
+ memset(&interactions,0,sizeof(interactions));memset(&input,0,sizeof(input));memset(keys,0,sizeof(keys));memset(polls,0,sizeof(polls));input.key=poll;
+ unsigned bounded=add("bounded.use","E",1,&a,1);assert(bounded);assert(mi_register(&input,"unrelated.walk","W"));begin(100);
+ assert(polls['E']==1&&polls['W']==1&&polls[16]==1&&polls[17]==1&&polls[18]==1&&!polls['Z']);
+ keys['E']=1;begin(101);assert(mir_take(&interactions,bounded));
+ assert(mi_rebind(&input,interactions.entries[bounded-1].action,"Q"));begin(102);assert(mir_blocked(&interactions,0,'E'));
+ input.snapshot=interactions.down;interactions.down['E']=0;begin(103);assert(mir_blocked(&interactions,0,'E'));
+ begin(104);assert(!mir_blocked(&interactions,0,'E')&&input.snapshot==interactions.down);input.snapshot=0;
  puts("interaction arbitration: overlap, native-mask contract, remap, release, gates, ordering, rollback and capacity passed");return 0;
 }

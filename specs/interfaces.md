@@ -28,7 +28,10 @@ also permits the reviewed managed backend to declare native API requirements
 with `runtime_api_abi: 1`; managed packages cannot publish native tables. A target
 must advertise native readiness ABI 1 before deploying this opt-in consumer.
 The source-only C# `RuntimeClient` checks the resident loader/table exports,
-waits without blocking for Ready and performs cached native lookup. It does not
+waits without blocking for Ready and invokes native lookup. It caches the
+connector delegates; each domain wrapper caches its resolved table and typed
+function delegates. Calling TryFind repeatedly still performs native lookup.
+It does not
 order arbitrary BepInEx Load methods or register managed callbacks during native
 startup. Domain wrappers remain owned and versioned by each framework. Native v1–v5 packages
 also cannot opt into that metadata: requiring v6 makes old loaders reject it.

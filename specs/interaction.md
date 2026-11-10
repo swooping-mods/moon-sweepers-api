@@ -8,7 +8,7 @@ changing ordinary input tables or unrelated mods' callback delivery.
 
 ## Current implementation
 
-SDK 0.6 supplies `interaction.h` and `interaction_registry.h`. The AMD64 C11
+SDK 0.6.1 supplies `interaction.h` and `interaction_registry.h`. The AMD64 C11
 layouts are table 32 bytes, action descriptor 40 and cached state 32. ABI 1 adds
 registration, repeatable sampling and `take(handle, actor)`; InputApiV1 remains
 ABI 1 and 64 bytes. Registration names begin with the owning package ID and a
@@ -18,7 +18,10 @@ Callback code/context are resident; names/bindings are copied.
 The portable registry holds 128 interactions over the shared 512-action input
 registry. It selects eligible actions using active input, priority, distance and
 stable action name. Each supplied input epoch uses a coherent physical snapshot;
-an optional pressed snapshot preserves short taps. Successful exclusive presses
+an optional pressed snapshot preserves short taps. Only registered action keys,
+modifier families and latched captured keys are physically polled; unused
+virtual keys are zero in the temporary action snapshot. Supplied snapshots may
+alias the registry's previous down array. Successful exclusive presses
 latch the physical base key through its release epoch, including modifier-key
 aliases. Gated delivery still tracks physical edges. Polling/sampling alone
 does not consume the selected edge; take succeeds once per epoch.
