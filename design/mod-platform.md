@@ -7,17 +7,20 @@ the friend's MarsSweepers and other authors; keep each mod independent and
 frameworks as ordinary mods between game integration and content. Assess a
 conventional API/loader split and efficient adapter-based implementation.
 
-Status: the generalization objective is requested. The architecture and sequence
-below are AI proposals. Saving this document does not make them implemented
-contracts. Current behavior remains in [contracts](../specs/contracts.md) and
+Status: the generalization objective is requested. SDK 0.3 implements shared
+native/managed package validation and provider-neutral interface metadata;
+the runtime registry/adapter/framework migration below remains proposed work.
+Current behavior is recorded in [contracts](../specs/contracts.md),
+[interface contracts](../specs/interfaces.md) and
 [building identity](../specs/building-api.md).
 
 ## Evidence and rationale
 
 The [research snapshot](../research/mod-platform.md) links the central study,
 52-mod inventory, checked source revisions and conventional precedents. The
-existing public SDK is native/companion only; the workshop contains an additional
-managed contract and more advanced adapter code. Frameworks already have separate
+initial SDK 0.2 was native/companion only; SDK 0.3 now owns shared managed package
+rules consumed by both loader checkouts. The workshop retains more advanced
+adapter hosting. Frameworks already have separate
 versioned native exports. Public building rules currently know a specific
 framework identity. Repeated framework connectors perform private DLL lookup
 and idempotent startup. The current native hook API is intentionally three

@@ -38,6 +38,49 @@ managed bridging and performance benchmarking were not run for this review;
 earlier retained Mars gameplay passes were read rather than repeated. The full
 generalization objective remains unfinished.
 
+## SDK 0.3 shared package/interface implementation — 2026-11-10
+
+The SDK now owns native/managed backend validation, external provenance,
+case-insensitive plugin/data identity checks, optional/required owner-qualified
+interface dependencies, ABI/prefix/capacity checks and provider-neutral building
+API selection. Existing numeric building identities and legacy package rules
+remain. Native interface packages require v6 plus runtime API ABI 1 so older
+loaders reject them explicitly. The existing managed backend cannot yet declare
+native interfaces; that requires the pending bridge/host contract.
+
+Both loaders pin the same complete 21-file SDK snapshot. The workshop's package
+and managed-manifest modules now forward to it; its portable-layout and tamper
+checks pass. The standalone loader can import a managed package, shows it as a
+game mod, and refuses unavailable hosts before preparation. Both preparations
+reject the unavailable native API registry. No runtime capability is inferred
+from package metadata alone.
+
+Final checks: **27 SDK tests**, **50 standalone loader tests**, and **52 focused
+workshop tests** (46 loader, two SDK/portable checks, four building checks) pass.
+No tests were skipped/excluded in those scopes. The standalone native bootstrap
+and diagnostic cross-build/export checks pass; SDK 0.3 ZIP export passes. An
+initial new test had a case-sensitive diagnostic assertion, corrected before
+the final successful run.
+
+Read-only checks validate all **53 actual installed packages** and order the
+current 50-mod selection together with the exact reviewed Mars DLL as a 51-mod
+set. The selection remains unchanged. This is metadata/byte-integrity evidence,
+not new loaded-world or gameplay qualification.
+
+Evidence: `artifacts/checks.json`,
+`artifacts/generalization-review/api-check.log`,
+`artifacts/generalization-review/catalog-regression.json`,
+`artifacts/moon-sweepers-api-0.3.0.zip` and `artifacts/SHA256SUMS`.
+Standalone checks/build logs are in that project's
+`artifacts/generalization-review/`; workshop cycle receipts are indexed by its
+`artifacts/api-contracts/generalization-checks.json`.
+
+The runtime registry, framework SDK/publication migration, managed bridge,
+production managed-adapter consolidation, gameplay/co-op and performance
+qualification remain outside this implementation slice. No game, Wine or
+native Windows process was started, no dependency was downloaded and no source
+was pushed or published. The full generalization goal remains active.
+
 ## Public source cleanup verification — 2026-11-10
 
 The proposed public baseline passed all seven focused API tests, with no skips or

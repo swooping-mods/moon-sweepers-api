@@ -26,6 +26,14 @@ Providers must declare their framework dependency. Undeclared legacy packages
 remain subject to runtime conflict checks rather than a fictitious complete
 preflight guarantee.
 
+SDK 0.3 adds an opt-in provider-neutral `build_api` selector. It names an explicit
+mandatory `requires_apis` dependency; the chosen ordinary mod advertises its
+`build_menu_max_kind` capacity through `provides`. All providers still share the
+same persistent numeric identity space and cross-package collision check. The
+old top-level capacity field and implicit framework identity remain a legacy
+path. This metadata does not implement another building runtime or shared API
+registry. [Interface contract](interfaces.md).
+
 `docs/registries/buildings.json` is the coordination registry. Kind 193 and
 `manual-power-poles.power-pole` remain assigned to Manual Power Poles. Retired
 IDs and keys stay occupied. Numeric kinds are persistent identities, never
