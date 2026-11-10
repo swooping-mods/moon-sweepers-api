@@ -15,6 +15,8 @@ also need an ordinary package dependency. Optional requirements do not select
 providers; when selected, providers must satisfy the API and precede the
 consumer. The package resolver detects API dependency cycles, incompatible
 ABI/size/limits and foreign API namespaces without recognizing framework IDs.
+The owner prefix uses the ordinary package key grammar, including digit-leading
+identities; service suffix segments retain their letter-leading grammar.
 
 Native package v6 with `runtime_api_abi: 1` marks a package requiring the shared runtime interface
 protocol. SDK 0.4 supplies the C publication/lookup/frame contracts and native

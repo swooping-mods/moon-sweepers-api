@@ -39,6 +39,19 @@ class InterfaceChecks(unittest.TestCase):
         with self.assertRaisesRegex(ValueError, "Insufficient API limit"):
             self.resolve(values)
 
+    def test_every_valid_package_identity_can_own_an_interface(self):
+        for name in ('3d-tools', 'test-3d', '7'):
+            with self.subTest(owner=name):
+                library, feature = provider(name), consumer()
+                feature['requires'] = [name]
+                feature['requires_apis'][0]['api'] = name + '.building'
+                for mod in (library, feature): packages.validate(mod)
+                values = {mod['id']: mod for mod in (feature, library)}
+                self.assertEqual(self.resolve(values), [name, feature['id']])
+        for name in ('-bad', 'bad-', 'bad--id', 'Bad'):
+            with self.subTest(invalid_owner=name), self.assertRaises(ValueError):
+                packages.validate(provider(name))
+
     def test_missing_dependency_wrong_abi_and_short_table_are_rejected(self):
         library, feature = provider(), consumer()
         values = {mod["id"]: mod for mod in (feature, library)}

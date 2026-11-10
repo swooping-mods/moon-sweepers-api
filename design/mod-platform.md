@@ -109,7 +109,9 @@ copy or reimplement its C# generator/layout/repair code. Retain its complete
 screened input hashes, notices/source archives and disabled-download settings.
 The qualified profile is Moon Sweepers Steam 1.0.5 / Unity 6000.6 / IL2CPP 108;
 other profiles and the pinned development runtime need separate qualification.
-The standalone loader currently refuses managed hosting explicitly.
+The standalone loader now implements the explicit private-mode attachment path;
+its host/launch qualification is separate from the retained adapter tests.
+Default and installed-game distributions continue to refuse that backend.
 
 Current mixed package dependency ordering establishes selection closure, not a
 cross-backend startup rendezvous. Native ModStart and upstream BepInEx plugin

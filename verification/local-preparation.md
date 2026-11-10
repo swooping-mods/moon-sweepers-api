@@ -198,3 +198,39 @@ with `*-0.4-camera-host-*` gate/build logs under each project's existing ignored
 generalization verification directory. This supersedes earlier same-version
 local candidates. The framework owner runs its separate relocated-SDK consumer
 and native package checks. No ABI or camera algorithm changed.
+
+## Package identity and managed deployment convergence — 2026-11-10
+
+Aligned owner-qualified API prefixes with the existing package key grammar,
+including `3d-tools`, `test-3d` and `7`; service suffixes remain letter-leading.
+Invalid/trailing/doubled hyphens and uppercase package IDs still reject. The
+standalone native package-ID and startup-plan parser were aligned in the
+coordinated public review, including actual encoded numeric provider/consumer
+contracts. **36 SDK tests pass**, with no skips/exclusions. The current pinned
+SDK is `artifacts/registry-sdk-0.4.0-numeric-ids` (**32 files**); headers and C
+layouts are unchanged.
+
+The standalone loader now implements explicitly attached managed hosting in
+private-copy mode, separate plugin/data namespaces, filtered native startup,
+managed-only empty native plans and transactional executable-input allowlists.
+Its Python deployment helper is canonical; the workshop consumes an exact
+hash-pinned copy. Workshop loader **46 tests** plus the source-pin check pass.
+The existing C# adapter/generator/profile/repair implementation is reused via
+checked artifacts, with no second implementation or automatic downloads.
+
+The latest combined standalone gate passes **96 tests**, no skips/exclusions.
+Native AMD64 and Windows portable builds/static checks pass. Its public-review
+owner ran all six bounded Wine controls against the exact produced runtime and
+portable app: DLL guards, Python/Qt and real launcher paths pass. Runtime hash:
+`cb93b91d582615b248b526e78e724dff00390ba060585a4cb7c5fea0c3e2bbdd`;
+Windows ZIP hash:
+`9119c13a8806f010a1e7e26a40279910703d6f0330552843f631c5119bf3d233`.
+This includes the shared RDX stack-home prologue fix copied from its actual
+GPS consumer and exercised under both sanitized C compilers.
+
+Those package/Wine checks use the default native distribution. Real attachment
+of the retained screened BepInEx bundle, standalone managed world/save/restart
+and cross-backend readiness/service bridging remain separate work. Installed
+mode refuses managed mods. Native Windows gameplay, co-op and arbitrary Unity/
+game profiles remain unqualified. The full goal stays active; no publication
+or original-game/personal-save mutation occurred.
