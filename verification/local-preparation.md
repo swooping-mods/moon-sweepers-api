@@ -96,3 +96,45 @@ feature commits and uncommitted SDK/runtime-interface changes remain local and
 are excluded from this publication. Exact source test receipts and publication
 identities are retained under ignored `artifacts/public-source-cleanup/`.
 No game, native Windows or co-op test was run for this documentation cleanup.
+
+## SDK 0.4 native runtime contracts — 2026-11-10
+
+Added frozen runtime publication/lookup/frame tables, portable input/camera
+contracts and bounded registry helpers, and the deterministic native startup
+plan encoder. The standalone loader implements one shared API/hook/frame
+registry with dependency-ordered commit, exact declaration/capacity matching,
+prefix lookup and owner rollback. No global second startup phase is imposed.
+The public Build Menu client now binds that registry under a recognized loader
+and refuses an unavailable/incompatible table without starting another DLL.
+The standalone modkit fallback and existing hook/save identities remain.
+
+Final SDK gate: **32 tests pass**, no skips/exclusions. Separate public-client
+execution under Clang and GCC ASan/UBSan checks missing/wrong runtime, wrong
+domain ABI/size, no private load/start under a recognized loader, frame
+subscription and the legacy fallback. Public runtime/input/camera C tables
+compile for host and Windows AMD64. SDK 0.4 export and the complete **31-file**
+standalone consumer snapshot verify; 36 local documentation links resolve.
+
+The combined standalone loader gate passed **76 tests** at this checkpoint,
+including independent public-SDK provider/consumer translation units calling
+the production C registry under both sanitized compilers. API/thread/prefix
+boundaries, every truncated plan prefix, malformed/trailing bytes, capacity
+bounds, missing/failed publication and callback rollback pass. Actual inert v6
+archives deploy a deterministic plan and preserve unknown edits to it. The
+freestanding Windows AMD64 bootstrap/diagnostic build and exports pass.
+Concurrent installed-mode additions are included in that combined gate and
+have separate owning qualification; they are not attributed to this SDK change.
+
+Evidence: `artifacts/checks.json`,
+`artifacts/generalization-review/api-0.4-check.log`,
+`artifacts/generalization-review/sdk-0.4-document-check.json`,
+`artifacts/moon-sweepers-api-0.4.0.zip`, `artifacts/SHA256SUMS`,
+`artifacts/registry-sdk-0.4.0-reviewed/snapshot.json` and the standalone loader's
+`artifacts/generalization-review/loader-0.4-check.log`.
+
+Limits: the workshop/framework migration is coordinated with its owning task;
+the selected Little Helpers native closure is held unchanged during its separate
+qualification window. This task ran no game, Wine, native Windows or co-op
+process. Managed bridges, framework-specific end-to-end qualification and
+matched performance measurements remain unfinished. No dependency was acquired,
+source pushed, PR opened or release published. The full goal remains active.

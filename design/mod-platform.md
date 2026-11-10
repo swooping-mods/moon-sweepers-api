@@ -7,9 +7,11 @@ the friend's MarsSweepers and other authors; keep each mod independent and
 frameworks as ordinary mods between game integration and content. Assess a
 conventional API/loader split and efficient adapter-based implementation.
 
-Status: the generalization objective is requested. SDK 0.3 implements shared
-native/managed package validation and provider-neutral interface metadata;
-the runtime registry/adapter/framework migration below remains proposed work.
+Status: SDK 0.4 implements shared native/managed package validation,
+provider-neutral interface metadata, public runtime/input/camera contracts and
+a deterministic native startup plan. The standalone loader implements the
+registry and platform adapters. Workshop/framework migration, managed bridges,
+gameplay and performance qualification remain active work below.
 Current behavior is recorded in [contracts](../specs/contracts.md),
 [interface contracts](../specs/interfaces.md) and
 [building identity](../specs/building-api.md).
@@ -71,10 +73,14 @@ not recognize a list of blessed framework IDs. Stable names are resolved once
 and consumers cache typed tables. Matching capability names alone never permit
 substituting a provider with incompatible semantics.
 
-Use two initialization phases: load and publish provider interfaces; then bind
-required interfaces and register consumers; activate game hooks only after
-successful startup. Attribute every registration to the currently starting
-mod, roll it back on failure and reject unresolved required APIs before play.
+Use dependency-ordered ModStart scopes: check required committed APIs, bind
+providers, publish the current mod's tables and register callbacks, then commit
+only after successful startup and exact declaration matching. Activate game
+hooks after all mods start. This implementation replaces the initial proposed
+global publish-all/bind-all phases: existing exports expect dependencies to be
+usable inside ModStart, so per-mod commit preserves that behavior. Attribute
+every registration to its owner, roll back APIs/frames/hooks together on failure
+and reject unresolved required APIs before play.
 Keep modules and callbacks resident through process exit initially. World
 teardown resets transient game state without invalidating resident API tables.
 Existing ModStart/export behavior needs an explicit compatibility path; do not

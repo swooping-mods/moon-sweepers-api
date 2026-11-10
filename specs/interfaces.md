@@ -17,11 +17,13 @@ consumer. The package resolver detects API dependency cycles, incompatible
 ABI/size/limits and foreign API namespaces without recognizing framework IDs.
 
 Native package v6 with `runtime_api_abi: 1` marks a package requiring the shared runtime interface
-protocol. This SDK implements metadata validation and graph ordering; runtime
-publication/discovery is not implemented by metadata alone. Consumers must
-reject unsupported runtime requirements before deployment. Native/managed
-host sequencing and cross-language wrappers need their own implementation and
-qualification. The reviewed managed backend remains available for ordinary
+protocol. SDK 0.4 supplies the C publication/lookup/frame contracts and native
+startup plan; the standalone loader implements them. Metadata alone never
+publishes a table: [runtime services](runtime-services.md) requires actual
+publication to match the deployed declarations before provider startup commits.
+Consumers reject unsupported runtime requirements before deployment. Managed
+host sequencing and cross-language wrappers still need their own implementation
+and qualification. The reviewed managed backend remains available for ordinary
 plugins; it cannot yet declare native interface metadata. Native v1–v5 packages
 also cannot opt into that metadata: requiring v6 makes old loaders reject it.
 
@@ -48,9 +50,11 @@ pack/examine/install/readback, mixed dependency/hook checks, unavailable backend
 namespace collisions and provenance refusal. Payloads are synthetic inert bytes.
 Run `python3 tools/check.py` and `python3 tools/export.py`.
 
-No C ABI or game-save format changed. These host checks do not establish
-framework-call execution, native Windows, game/world/co-op behavior or improved
-performance. The full runtime and framework migration remain unfinished.
+SDK 0.4 adds runtime, input and camera C contracts while preserving the existing
+hook layouts and game-save format. Loader tests execute independent public-SDK
+provider/consumer calls with the production C registry and startup-plan parser.
+These host checks do not establish native Windows game/world/co-op behavior or
+improved performance. Framework migration and managed bridging remain unfinished.
 
 ## AI Inferred
 

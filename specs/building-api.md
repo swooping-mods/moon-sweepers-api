@@ -31,8 +31,11 @@ mandatory `requires_apis` dependency; the chosen ordinary mod advertises its
 `build_menu_max_kind` capacity through `provides`. All providers still share the
 same persistent numeric identity space and cross-package collision check. The
 old top-level capacity field and implicit framework identity remain a legacy
-path. This metadata does not implement another building runtime or shared API
-registry. [Interface contract](interfaces.md).
+path. SDK 0.4's client uses the generic runtime registry under a recognized
+loader, checks the returned building ABI/prefix and refuses unavailable tables
+without private DLL loading or ModStart recursion. Without a recognized loader,
+the legacy standalone modkit path remains. The domain building runtime still
+belongs to its framework. [Interface contract](interfaces.md).
 
 `docs/registries/buildings.json` is the coordination registry. Kind 193 and
 `manual-power-poles.power-pole` remain assigned to Manual Power Poles. Retired

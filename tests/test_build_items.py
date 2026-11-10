@@ -12,6 +12,16 @@ from moon_mod_api import build_items, packages
 
 
 class BuildingApiChecks(unittest.TestCase):
+    def test_public_client_uses_runtime_and_fails_closed_without_private_startup(self):
+        with tempfile.TemporaryDirectory() as directory:
+            for compiler in ("clang", "gcc"):
+                executable = Path(directory) / compiler
+                subprocess.run([compiler, "-std=c11", "-Wall", "-Wextra", "-Werror",
+                                "-fsanitize=address,undefined", "-I", str(ROOT / "include"),
+                                str(ROOT / "tests/native_build_client_checks.c"), "-o", str(executable)], check=True)
+                result = subprocess.run([str(executable)], check=True, capture_output=True, text=True)
+                self.assertIn("without private startup", result.stdout)
+
     def test_public_build_header_and_existing_layout(self):
         source = '''#include "moon_sweepers/build_menu/build_menu.h"
 _Static_assert(MB_FIRST_KIND==193 && MB_LAST_KIND==384 && MB_LIMIT==192,"range");
