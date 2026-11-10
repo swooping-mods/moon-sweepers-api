@@ -10,6 +10,34 @@ Evidence: `artifacts/checks.json`, `artifacts/moon-sweepers-api-0.1.0.zip`, `art
 
 Limits: no game, Wine, native Windows or co-op replay; no GitHub-hosted CI execution; no Nexus upload or URL liveness checks. The loader's current-game adapter and legacy ABI are preserved, not newly gameplay-qualified. No external dependencies were downloaded, organization repositories/remotes created, pushes performed or PRs opened.
 
+## Generalization architecture review — 2026-11-10
+
+Recorded the requested generalization goal and a proposed SDK/runtime/adapter
+split in [design](../design/mod-platform.md), grounded in the central research
+study and the [project snapshot](../research/mod-platform.md). Inspected all
+52 workshop mod manifests (50 native, two companion), framework SDKs, managed
+adapter contracts and reviewed Mars source/current retained qualification.
+Existing unrelated edits and mod selections were preserved.
+
+`python3 tools/check.py`: **12 passed**, no skips/exclusions. Synthetic independent
+native manifests validate in both public and development implementations. A
+synthetic independent BepInEx manifest is accepted by the workshop and rejected
+by this public SDK as `Unsupported mod runtime`, confirming the current contract
+gap. Source/manifest hashes and exact revisions are retained under ignored
+`artifacts/generalization-review/inspection.json`; ordinary checks retain
+`artifacts/checks.json`.
+
+Authored-document review checks all 52 inventory rows and local navigation;
+the initial check found one source link moved by concurrent external-mod
+extraction, which was corrected to its new owner. The final result is retained
+in `artifacts/generalization-review/document-check.json`.
+
+This change documents architecture only. No runtime implementation, package
+schema, C ABI, framework behavior or save data changed. Game/Windows/co-op replay,
+managed bridging and performance benchmarking were not run for this review;
+earlier retained Mars gameplay passes were read rather than repeated. The full
+generalization objective remains unfinished.
+
 ## Public source cleanup verification — 2026-11-10
 
 The proposed public baseline passed all seven focused API tests, with no skips or

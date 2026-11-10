@@ -2,6 +2,9 @@
 
 Current implementation and contracts for `swooping-mods/moon-sweepers-api`.
 
+Proposed generalization is tracked in [the design map](../design/_readme.md);
+it does not extend the implemented contracts listed below.
+
 | Spec | Owning source | Read when |
 |---|---|---|
 | [API and package boundaries](contracts.md) | `include/`, `python/`, `tools/check.py`, `tools/export.py` | Changing ABI, package rules, author tools, SDK snapshots or CI |
