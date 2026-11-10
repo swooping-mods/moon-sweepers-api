@@ -586,7 +586,13 @@ selections and three other library entries. The current core SDK remains the
 38-file snapshot bcc4c3da; the compatibility sdk/v1 subtree has its separate
 28-file map. The independent Hints export remains separate from that core tree.
 No native rebuild, package restamp or game preparation/launch occurred during
-integration. Independent final readback is pending at this record's update.
+integration. Independent final readback subsequently passes all15 checks,
+including exact runtime/packages/producers, both SDK maps, the complete444-file
+bundle and both ZIPs, preserved selections/other entries and235 unchanged managed
+files. Receipt: workshop `artifacts/input-generalization/final-delivery-readback.json`,
+SHA256 `f1db0121021d24bb69c951fbd93211f1104e6b67e8ccba3c968d68bf4611597c`.
+Its scratch capture was made after delivery; journal recovery objects provide
+the authoritative pre-delivery comparisons, as explicitly recorded in that receipt.
 
 This later coordinated delivery supersedes earlier statements about retaining
 51549 as the normal default. It does not change the exact runtime370919 scope
