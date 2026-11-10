@@ -8,10 +8,10 @@ owns executable hosting and platform/game adapters.
 
 ## Current implementation
 
-SDK 0.5 supplies `services.h` (`runtime.h` is a forwarding include). The AMD64 C11
+SDK 0.6 supplies `services.h` (`runtime.h` is a forwarding include). The AMD64 C11
 layout is frozen as follows: publication base 32 bytes, capacity extension 48,
 limit entry 16, frame subscription 32, runtime function table 40. The runtime
-export is `MoonLab_GetRuntimeApi_v1`; v6 providers/consumers export
+export is `MoonLab_GetRuntimeApi_v1`; v6/v7 providers/consumers export
 `MoonLab_RuntimeServicesAbi` returning 1. Existing hook structures/exports stay
 compatible. Domain tables remain opaque pointers with independently owned ABI.
 A separate `MoonLab_RuntimeState_v1` query returns Pending (0), Ready (1) or
@@ -79,8 +79,12 @@ dependency order. It rejects duplicates/reversed dependencies, filters managed
 entries, omits absent optional requirements, sorts API/limit names and limits
 the output to 2 MiB. The loader deploys it through the same ownership/integrity
 journal as the DLLs. The C parser validates all bytes before loading a mod and
-checks the actual startup list and v6 DLL marker. The plan describes contracts;
+checks the actual startup list and v6/v7 DLL marker. The plan describes contracts;
 it contains no executable addresses and cannot establish implementation safety.
+
+Native package v7 retains v6 service publication and the same marker ABI; its
+host-adapter requirements are checked by the package resolver before deployment.
+The startup-plan wire format remains v1 and accepts native package numbers 1–7.
 
 Wire format v1 is little endian: eight-byte magic `MSAPI\x01\0\0`, uint32
 native-mod count, then each mod's length-prefixed ID, uint32 package ABI number,

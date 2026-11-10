@@ -18,8 +18,8 @@ ABI/size/limits and foreign API namespaces without recognizing framework IDs.
 The owner prefix uses the ordinary package key grammar, including digit-leading
 identities; service suffix segments retain their letter-leading grammar.
 
-Native package v6 with `runtime_api_abi: 1` marks a package requiring the shared runtime interface
-protocol. SDK 0.5 supplies the C publication/lookup/frame contracts and native
+Native packages v6/v7 with `runtime_api_abi: 1` marks a package requiring the shared runtime interface
+protocol. SDK 0.6 supplies the C publication/lookup/frame contracts and native
 startup plan; the standalone loader implements them. Metadata alone never
 publishes a table: [runtime services](runtime-services.md) requires actual
 publication to match the deployed declarations before provider startup commits.
@@ -32,6 +32,17 @@ waits without blocking for Ready and performs cached native lookup. It does not
 order arbitrary BepInEx Load methods or register managed callbacks during native
 startup. Domain wrappers remain owned and versioned by each framework. Native v1–v5 packages
 also cannot opt into that metadata: requiring v6 makes old loaders reject it.
+Native v7 additionally requires a nonempty `requires_host` capability map.
+
+`runtimes.host_requirements` validates native v7 host adapter requirements:
+up to 32 names matching `[a-z][a-z0-9_]{0,63}` with exact positive uint32 ABIs.
+`resolve` and `require_available` accept `host_capabilities`; `None` means offline
+inspection, while a target supplies a map (empty when absent/null). Missing or
+incompatible adapters reject before deployment. A target repeats this check at
+preparation to catch runtime replacement after selection. Package v7 deliberately
+makes older validators refuse these mandatory requirements; existing v6 package
+admission and C service ABI 1 are unchanged. Framework publication remains
+owner-qualified through `requires_apis`, separate from host adapters.
 
 `build_items.py` accepts an explicit `build_api` referencing a mandatory API
 requirement. The selected provider advertises `build_menu_max_kind` within

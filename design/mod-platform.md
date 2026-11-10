@@ -14,8 +14,12 @@ registry and platform adapters. The workshop consumes pinned canonical sources;
 its frameworks publish ordinary mod-owned interfaces and export independent
 SDKs. Optional standalone managed deployment is implemented in private-copy
 mode. SDK 0.5 adds a source-only managed consumer connector and explicit native
-readiness, while frameworks own their typed wrappers. Loaded-game bridge
-qualification and broader gameplay/performance qualification remain separate.
+readiness, while frameworks own their typed wrappers. The standalone runtime
+passes an independent native-provider/managed-consumer startup test. Domain
+loaded-world/Hints presentation and broader gameplay/performance qualification
+remain separate. Workshop native readiness integration also passes its own private startup
+proof using its nested SDK/loader. SDK 0.6 adds generic host-adapter admission
+through native package v7; individual adapters retain their own ABI.
 Current behavior is recorded in [contracts](../specs/contracts.md),
 [interface contracts](../specs/interfaces.md) and
 [building identity](../specs/building-api.md).
@@ -117,13 +121,16 @@ The standalone loader now implements the explicit private-mode attachment path;
 its host/launch qualification is separate from the retained adapter tests.
 Default and installed-game distributions continue to refuse that backend.
 
-Current mixed package dependency ordering establishes selection closure, not a
-cross-backend startup rendezvous. Native ModStart and upstream BepInEx plugin
-startup are independently bootstrapped; package dependencies are not translated
-into BepInDependency attributes. Cross-backend startup/service dependencies need
-an explicit readiness protocol and mixed lifecycle qualification before they
-can be advertised. The native registry and existing metadata-only mixed graph
-checks do not provide that protocol.
+Native ModStart and upstream BepInEx plugin startup remain independently
+bootstrapped; package dependencies are not translated into BepInDependency
+attributes. SDK 0.5 supplies an explicit consumer readiness protocol: reject
+unsupported targets before copying, inspect the resident loader, retry Pending
+without blocking, then bind committed native tables after Ready. Failure is
+terminal. The independent live service probe passes typed calls and GC lifetime;
+it initially observed Ready, so actual Pending timing remains host-tested.
+This does not sequence arbitrary BepInEx Load methods, admit managed publication
+inside a native ModStart transaction or establish Unity domain thread/object
+validity. Those boundaries remain owned by each framework/adapter.
 
 Mars remains an independent external mod, with its original DLL, namespace,
 gameplay, data and optional exact-version compatibility companion. It requires
@@ -168,16 +175,20 @@ are opt-in contracts, not an automatic world format or multiplayer migration.
 | Measured performance | Comparable unmodded, native-only, managed-only and mixed workload results | Startup time, frame-time distribution, allocations and callback/bridge/query costs with matched builds and saved scenarios |
 
 New tests must exercise behavior rather than merely search source for a desired
-name. No “full generalization” claim until an independent provider and consumer
-work without core special cases. Current public API checks passing establishes
-the old baseline, not these proposed stages.
+name. Independent provider/consumer host and live startup checks now work
+without core provider special cases. Current API and loader gates and exact live
+receipts are recorded in [verification](../verification/local-preparation.md).
+Those results establish their tested contracts; they do not establish all
+loaded-world/co-op/performance stages in the table.
 
 ## Open questions
 
 - Separate framework packages/SDKs are required by the objective; one repository
   per framework is a release/ownership choice, not a technical prerequisite.
-- Choose the first managed framework consumer from an actual use case; loading
-  unchanged Mars does not itself require rewriting it to use every framework.
+- The framework-owned Hints wrapper supplies the first domain bridge, with
+  host parser/registry, lifetime and allocation checks. Its actual native legend
+  admission still requires a concrete same-frame consumer qualification.
+  Loading unchanged Mars does not require rewriting it to use every framework.
 - Determine the shared event/input/UI-allocation and native/managed patch
   composition scope from concrete consumers. A universal detour engine, hot
   unload and arbitrary-game support are not assumed by this proposal.

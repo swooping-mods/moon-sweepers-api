@@ -7,7 +7,7 @@ snapshot 2026-11-10. Origin: the user's API/loader/generalization question, the
 study owns queries and comparisons; this copy retains the relevant local
 findings. No upstream source code is copied.
 
-## Observed implementation
+## Observed baseline before generalization
 
 The workshop has 52 mod manifests: 50 native and two companion tools. These
 include seven established framework/runtime providers plus the new, untracked
@@ -55,3 +55,15 @@ are recorded in ignored `artifacts/generalization-review/inspection.json` and
 `artifacts/checks.json`. Earlier Mars solo/reload evidence was read, not rerun.
 No game, external plugin or performance benchmark ran for this study. Existing
 ABI layouts, packages, saves and local selections were not changed.
+
+
+## Current implementation reference
+
+The observations and 12-test count above describe the original study baseline,
+before the implemented generalization. Current SDK 0.5 contracts, optional
+managed consumer readiness and their bounded verification are indexed by
+[specs](../specs/_readme.md) and the existing
+[verification record](../verification/local-preparation.md). The historical
+inventory and study evidence are retained rather than relabeled as current
+qualification. The original external precedents inform the component split;
+they do not qualify this implementation's game behavior.

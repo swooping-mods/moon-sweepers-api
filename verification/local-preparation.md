@@ -391,3 +391,36 @@ A final standalone host gate passes **99 tests**, zero skips/exclusions, adding
 an actual production seal/readiness check for a managed-only empty native plan.
 This covers the distinct no-native-ModStart startup path without adding another
 game run to the released slot. The b36 production runtime bytes are unchanged.
+
+### Workshop SDK 0.5 startup qualification
+
+Workshop runtime `370919027f2be02082bbb97ee3611f95b203934e4c6ea0696a72cb6b1a80d77e`
+passes run `51556b359b47452da8b1560c87b397c0` through its own nested SDK and
+Python loader. Independent native provider/managed consumer: Ready, typed 42,
+forced GC, exactly 10,000 native calls, zero managed bytes in the measured batch.
+Initial state was Ready; Pending timing remains host-tested. Original interop
+probe and prefix/profile/source/input preservation pass. Explicit cleanup receipt
+confirms process group 3404052 absent. No loaded-world/save, Hints legend-order,
+co-op, native Windows or frame-time claim. Frozen default runtime 51549 and its
+receipt were preserved.
+
+### Generic host-adapter capability admission
+
+SDK 0.6 introduces native package v7 `requires_host`, a bounded exact-ABI map
+independent of mod/provider identities. Existing native v6 and managed readiness
+contracts remain unchanged. Offline inspection omits the target; selection and
+preparation pass an explicit map, empty for absent/null runtime receipts.
+
+The complete API gate passes **43 tests**, no skips/exclusions, including an
+actual inert v7 archive round trip, wire-plan package number, independent
+capability names, exact ABI matching, invalid metadata/receipt boundaries and
+ordinary v6 compatibility. A separate subprocess using the retained SDK 0.5
+snapshot refuses a registry-only v7 descriptor as `Unsupported mod runtime`.
+An initial diagnostic using shared hooks stopped at the old hook-role gate;
+the registry-only repeat isolates unsupported-package-ABI refusal.
+
+The standalone consumer gate passes **101 tests**, no skips/exclusions: actual
+v7 package intake, before-copy refusal, cached selection recheck after runtime
+replacement and production v7 service publication/calls under Clang/GCC
+ASan/UBSan. These checks qualify host admission; the independently owned
+interaction engine adapter is not promoted by this schema change.
