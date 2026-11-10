@@ -1,5 +1,7 @@
 # API and package boundaries
 
+The source repository is public at [swooping-mods/moon-sweepers-api](https://github.com/swooping-mods/moon-sweepers-api). Product contracts and author tools belong here; organization rollout records and local session notes do not.
+
 This repository owns the public C11 AMD64 hook SDK, the `moon-mod-package/v1` contract and the standard-library package tool implementation. It does not implement a game bootstrap, UI, web service or gameplay mod.
 
 `include/moon_sweepers/{context,hooks,vehicle_input}.h` is the authoritative C surface. The exported runtime lookup remains `MoonLab_GetHookApi_v1`, and SDK consumers declare native package v5 with hook framework ABI 1. Context/subscription/table layouts and ownership/order rules are described in `docs/hooks.md`. The loader implements the functions and registration lifecycle; ABI compatibility is not a claim of game compatibility.
