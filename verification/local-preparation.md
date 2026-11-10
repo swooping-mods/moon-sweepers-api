@@ -165,3 +165,14 @@ separate from native Windows gameplay and actual game save/co-op qualification.
 The managed-adapter owner also confirmed that current mixed package ordering
 does not implement cross-backend startup readiness; the design records that
 remaining boundary explicitly.
+
+The final author-SDK export review also compiles the complete public Building
+bootstrap as an independent Windows AMD64 translation unit. It found the new
+connector's missing GetModuleHandleA import declaration in that bootstrap,
+which the original synthetic platform fixture supplied itself. Added the import
+and retained the complete-bootstrap regression: **34 SDK tests now pass** with
+no skips/exclusions. The canonical snapshot is
+`artifacts/registry-sdk-0.4.0-bootstrap/snapshot.json` (31 files), differing from
+the preceding input-qualified snapshot only in that declaration. This does not
+change loader runtime DLL behavior or its recorded hash; distribution content
+and static snapshot checks must use the updated header.

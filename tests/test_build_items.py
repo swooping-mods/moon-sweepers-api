@@ -12,6 +12,16 @@ from moon_mod_api import build_items, packages
 
 
 class BuildingApiChecks(unittest.TestCase):
+    def test_complete_public_build_bootstrap_compiles_for_windows(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "bootstrap.c"
+            path.write_text('''#include "moon_sweepers/build_menu/bootstrap.h"
+const MoonBuildMenu *consumer(void *domain,void *game){return mb_connect(domain,game);}
+''')
+            subprocess.run(["clang", "--target=x86_64-pc-windows-msvc", "-std=c11", "-Wall",
+                            "-Wextra", "-Werror", "-I", str(ROOT / "include"),
+                            "-fsyntax-only", str(path)], check=True)
+
     def test_public_client_uses_runtime_and_fails_closed_without_private_startup(self):
         with tempfile.TemporaryDirectory() as directory:
             for compiler in ("clang", "gcc"):
