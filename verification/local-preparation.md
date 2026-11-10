@@ -234,3 +234,26 @@ and cross-backend readiness/service bridging remain separate work. Installed
 mode refuses managed mods. Native Windows gameplay, co-op and arbitrary Unity/
 game profiles remain unqualified. The full goal stays active; no publication
 or original-game/personal-save mutation occurred.
+
+### Offline managed attachment package
+
+Reused the existing exact screened upstream closure and qualified original
+adapter (`2132c03e66ff08f16f1ba819cefa30b46a8fbc42d3b825028f69589c025b7a0a`).
+All **234 distribution files** and the recorded build inputs match. The existing
+intake's extracted-file scan/static dispositions are retained, including its
+stale-signature and outer-archive coverage limits; no download or scanner
+update was performed. This reuse decision allows offline local packaging only
+at this checkpoint, with no upstream host/plugin execution.
+
+The canonical builder attachment and standalone `--with-bepinex` path pass.
+The managed-private source ZIP verifies every host-file hash, preserves source
+archives/notices, omits local intake/build directories from its receipt and
+contains no game executable, GameAssembly or Steam AppID file. Its native
+runtime remains the same `cb93b91d...` build; default source/Windows checksum
+bytes remain unchanged. Managed ZIP hash:
+`c9040a2c69b0252a3b2258babe2e7630ebd4e370c879b35c9654f72a8575a366`.
+The full host gate still passes **96 tests**. Machine evidence lives in the
+standalone project's `artifacts/managed-generalization/{intake-reuse,package-check}.json`
+and `final-host-check.log`. The managed loaded-game/save/restart test remains
+required; the existing replay currently imports the workshop Service and must
+explicitly exercise the standalone code before that result can be claimed.
