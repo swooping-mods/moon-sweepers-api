@@ -624,4 +624,41 @@ owning loader's independent parser, runtime fixtures, profile admission and
 current-game execution are separate integration gates. These API-only synthetic
 profiles qualify no actual future Moon Sweepers release, native Windows game,
 managed forward compatibility, save/world behavior or co-op. Receipts are retained
-under the worker's ignored `.local/forward-compat/` until root integration.
+in the owning API's ignored `.local/forward-compat/api-worker/` after integration.
+
+
+## Forward-compatibility integration — 2026-11-11
+
+The owning API gate passes 61 tests with no skips; the assembled loader passes
+214 with no skips, using the pinned 0.7.0 snapshot. Fifteen executable native
+cases run the same compiled framework/feature pair against two relocated
+synthetic adapters, with ASan/UBSan, declared lookup enforcement and concurrent
+foreign-thread refusal. These profiles establish substitution boundaries, not
+another supported Moon Sweepers release.
+
+The final source candidate `ba46ec767a180db85fb58bc8f91c0732345371d3d3872a9ab131ef662a85a9b5`
+builds all Linux formats. Actual packaged CLI/Qt checks, known/unknown reports,
+strict catalog parsing and receipt/profile/capability identity pass for tar,
+`.run` and AppImage. The retained local AppImage is
+`acf7f785f94231163799b327062a24a490e2fbf39fe19bb31bd44ac6f0fd985f`.
+
+Private current-game run `fast-37d9da59c712476ba42d8e0e2e31a22d` starts the
+nine starter mods, unchanged-source Test Framework and a v8 clock diagnostic.
+It passes 36 assertions over eight real frames on an RTX 2080 Ti. The current
+Unity build strips `timeAsDouble`; its reviewed adapter validates retained
+`Time.time`/`deltaTime` single-precision getters and widens their values, without
+changing scaled-time semantics. A wrong diagnostic service ID and an early
+setup completion were corrected in separate diagnostic attempts; their results
+are not multi-frame proof. The initial fresh Proton setup timed out, and the
+original double-getter binder refused startup before this correction.
+
+Private Steam-stat isolation, prefix/profile/settings restoration, source,
+fixture, package and runtime identity checks pass. Unity shutdown is normal and
+the owned runner exits zero. Gamescope subsequently exits -11 (GUI wrappers
+report 139); the full game-session result remains false. The scoped game-API
+observations pass separately and do not silently promote UI reports to verified.
+Native Windows gameplay, future game releases, save semantics, arbitrary mod
+combinations and co-op remain unqualified. No release or publication was made.
+Compact integration receipts are retained by the owning loader under
+`.local/forward-compat/`, with results also appended to the workshop's existing
+adapter verification record.
