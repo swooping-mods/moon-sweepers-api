@@ -123,13 +123,17 @@ per-mod reasons and requirement rows expose provider version, optional status,
 required/actual ABI, size, capacities and satisfaction. `packages.resolve` repeats
 admission with the same target arguments before preparation.
 
-`verified` requires trusted loader evidence binding every selected canonical
+`verified` requires trusted loader evidence with explicit `success: true`, binding every selected canonical
 manifest digest (including payload hashes), full selection digest, profile
 digest, runtime binary SHA-256, scope (`startup`, `world` or `co-op`) and record
 identity. Provider, payload, physical binding or runtime changes invalidate that
 match. Author description/verification text is never read as evidence. Verified
 startup is not a world/multiplayer claim. No future-release qualification or
 automatic online adapter acquisition is implied.
+The loader must validate all gates for the stated scope before constructing a
+successful qualification row. Failed/incomplete diagnostic receipts do not
+qualify, even if every identity matches. At most 128 evidence rows are accepted;
+an oversized evidence list does not grant verified status.
 
 Omitted legacy resolver target arguments retain old offline inspection behavior.
 Player loaders must supply explicit actual targets and legacy backend policy;

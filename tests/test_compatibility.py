@@ -205,7 +205,7 @@ class CompatibilityChecks(unittest.TestCase):
         library, value = modern("ordinary-library", False), modern(clock=False)
         value["requires"] = [library["id"]]; values = {library["id"]: library, value["id"]: value}
         row = profile(); kwargs = target(row)
-        record = {"selection_digest": compat.selection_digest(values, values),
+        record = {"success": True, "selection_digest": compat.selection_digest(values, values),
                   "mod_digests": {n: compat.content_digest(v) for n, v in values.items()},
                   "profile_digest": row["digest"], "runtime_sha256": kwargs["runtime_sha256"],
                   "scope": "startup", "record": "loader-owned-review-1"}
@@ -213,9 +213,13 @@ class CompatibilityChecks(unittest.TestCase):
         self.assertEqual(result["status"], "verified")
         self.assertEqual(result["verification"], [{"scope": "startup", "record": "loader-owned-review-1"}])
         for change in ({"runtime_sha256": "e" * 64}, {"profile_digest": "e" * 64},
-                       {"selection_digest": "e" * 64}, {"mod_digests": {}}, {"scope": "everything"}):
+                       {"selection_digest": "e" * 64}, {"mod_digests": {}}, {"scope": "everything"},
+                       {"success": False}, {"success": None}, {"success": 1}, {"success": "true"}):
             with self.subTest(change=change):
                 self.assertEqual(self.evaluate(values, row, evidence=[{**record, **change}])["status"], "requirements-matched")
+        missing_result = {k: v for k, v in record.items() if k != "success"}
+        self.assertEqual(self.evaluate(values, row, evidence=[missing_result])["status"], "requirements-matched")
+        self.assertEqual(self.evaluate(values, row, evidence=[record] * (compat.MAX_EVIDENCE + 1))["status"], "requirements-matched")
         library["files"]["mod.dll"] = "f" * 64
         self.assertEqual(self.evaluate(values, row, evidence=[record])["status"], "requirements-matched")
         value["verification"] = {"Build": "Verified"}

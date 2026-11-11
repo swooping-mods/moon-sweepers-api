@@ -44,10 +44,13 @@ conflicts, capacities and archive integrity remain. Incompatible providers are
 propagated to consumers even when a consumer has no direct vanilla needs.
 
 Statuses distinguish unknown, incompatible and requirements-matched. Verified
-status requires trusted evidence bound to all selected manifest/payload digests,
+status requires trusted evidence with explicit boolean success bound to all selected manifest/payload digests,
 complete selection, profile digest, native runtime SHA and startup/world/co-op
 scope. Author verification strings do not count. No qualification records or
 real future-release compatibility claims are built into the SDK.
+The loader validates scope-specific gates before constructing evidence. A
+failed, absent or nonboolean result never qualifies; evidence lists over 128
+rows are not accepted for verified promotion.
 
 The [guide](../docs/compatibility.md) owns author usage; [runtime services](runtime-services.md)
 owns plan encoding. Core headers/evaluator use the normal pinned SDK export.

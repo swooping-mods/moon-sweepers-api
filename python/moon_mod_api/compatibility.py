@@ -12,6 +12,7 @@ GAME_FILES = frozenset(("GameAssembly.dll", "MoonSweepers.exe", "UnityPlayer.dll
 FIELDS = frozenset(("game_access", "game_api_abi", "requires_game"))
 MAX_CAPABILITIES = 64
 MAX_TABLE_SIZE = 65536
+MAX_EVIDENCE = 128
 
 
 def _positive(value, maximum=0xffffffff):
@@ -316,10 +317,12 @@ def evaluate(manifests, selected, game_hashes, *, game_profile=None, game_adapte
     except (KeyError, ValueError, TypeError):
         digest = None
     verified = []
-    if allowed and _digest(runtime_sha256) and isinstance(evidence, (list, tuple)):
+    if (allowed and _digest(runtime_sha256) and isinstance(evidence, (list, tuple))
+            and len(evidence) <= MAX_EVIDENCE):
         identities = {name: content_digest(manifests[name]) for name in chosen}
         for record in evidence:
-            if (isinstance(record, dict) and record.get("selection_digest") == digest
+            if (isinstance(record, dict) and record.get("success") is True
+                    and record.get("selection_digest") == digest
                     and record.get("mod_digests") == identities
                     and record.get("profile_digest") == profile["digest"]
                     and record.get("runtime_sha256") == runtime_sha256
