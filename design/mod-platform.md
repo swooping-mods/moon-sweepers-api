@@ -24,6 +24,18 @@ Current behavior is recorded in [contracts](../specs/contracts.md),
 [interface contracts](../specs/interfaces.md) and
 [building identity](../specs/building-api.md).
 
+## Forward compatibility request — 2026-11-11
+
+The user asks to treat vanilla plus selected mods as one base and keep feature
+binaries unchanged when a known game/adapter and framework contracts still fit.
+SDK0.7 implements the explicit v8 broker-only contract, combined requirements
+report, profile/content identity and startup-plan v2 described in
+[compatibility](../specs/compatibility.md). Legacy native/managed bindings retain
+pins. The loader owns actual profile implementations, trust and execution
+qualification; synthetic multiple-profile checks are not a future game release
+claim. Typed clock and framework-only examples establish a narrow first route,
+not a migration of every existing domain binding or framework.
+
 ## Evidence and rationale
 
 The [research snapshot](../research/mod-platform.md) links the central study,

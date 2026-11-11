@@ -598,3 +598,30 @@ This later coordinated delivery supersedes earlier statements about retaining
 51549 as the normal default. It does not change the exact runtime370919 scope
 of the original managed Hints world proof; dc89/joint55 has its separate native
 qualification. Frozen candidate SDKs, source exports and receipts are unchanged.
+
+
+## SDK0.7 adapter contract and effective-base checks — 2026-11-11
+
+The native v8 public header, explicit logical game capability requirements,
+scoped report/admission helpers and startup-plan v2 now pass **61 tests**, no
+failures/skips, with the existing reviewed SDK supplied through
+`MOON_API_DOTNET`. This includes the actual C#/C readiness/typed-call fixture.
+The initial baseline gate had one explicit optional-dotnet skip before supplying
+that path; the final complete gate has none. No external input was acquired.
+
+Seventeen new compatibility cases cover one byte-identical inert archive across
+two synthetic reviewed profiles, unchanged legacy wire bytes, exact v2 bytes,
+legacy/managed pin preservation, extra v8 pins, partial-pin legacy provider
+refusal, framework-only and optional consumers, transitive blockers, game and
+framework ABI/size/capacity needs, native ABI support, physical-profile mutation,
+scoped qualification identity, malformed selected providers and a compiled public
+broker-header consumer. Framework-only consumers need no dummy vanilla service.
+Both game/runtime lookup contracts bind declared needs during startup; provider
+semantics and real runtime enforcement belong to the loader.
+
+`tools/export.py` produces the current content-pinned SDK0.7 snapshot/ZIP. The
+owning loader's independent parser, runtime fixtures, profile admission and
+current-game execution are separate integration gates. These API-only synthetic
+profiles qualify no actual future Moon Sweepers release, native Windows game,
+managed forward compatibility, save/world behavior or co-op. Receipts are retained
+under the worker's ignored `.local/forward-compat/` until root integration.

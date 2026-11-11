@@ -18,7 +18,7 @@ ABI/size/limits and foreign API namespaces without recognizing framework IDs.
 The owner prefix uses the ordinary package key grammar, including digit-leading
 identities; service suffix segments retain their letter-leading grammar.
 
-Native packages v6/v7 with `runtime_api_abi: 1` marks a package requiring the shared runtime interface
+Native packages v6/v7/v8 with `runtime_api_abi: 1` marks a package requiring the shared runtime interface
 protocol. SDK 0.6 supplies the C publication/lookup/frame contracts and native
 startup plan; the standalone loader implements them. Metadata alone never
 publishes a table: [runtime services](runtime-services.md) requires actual
@@ -35,9 +35,9 @@ It does not
 order arbitrary BepInEx Load methods or register managed callbacks during native
 startup. Domain wrappers remain owned and versioned by each framework. Native v1–v5 packages
 also cannot opt into that metadata: requiring v6 makes old loaders reject it.
-Native v7 additionally requires a nonempty `requires_host` capability map.
+Native v7 additionally requires a nonempty `requires_host` capability map. V8 preserves framework declarations while using the separate [game adapter contract](compatibility.md); its host map is optional.
 
-`runtimes.host_requirements` validates native v7 host adapter requirements:
+`runtimes.host_requirements` validates mandatory native v7 and optional native v8 host adapter requirements:
 up to 32 names matching `[a-z][a-z0-9_]{0,63}` with exact positive uint32 ABIs.
 `resolve` and `require_available` accept `host_capabilities`; `None` means offline
 inspection, while a target supplies a map (empty when absent/null). Missing or

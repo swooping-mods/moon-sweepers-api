@@ -15,6 +15,7 @@ The API is a small SDK, not a web service. It owns the hook ABI, package format,
 - [Native runtime services](docs/runtime-services.md): owner-scoped publication, cached typed calls, frames and shared input/camera contracts.
 - [Managed framework consumers](docs/managed-services.md): explicit native readiness and independently owned typed wrappers.
 - [Interaction adapter](docs/interaction.md): explicit exclusive actions over the unchanged input table.
+- [Game compatibility](docs/compatibility.md): v8 broker-only services, framework requirements and evidence-based target reports.
 - [Generalization proposal](design/mod-platform.md) and [research evidence](research/mod-platform.md): planned runtime/adapter boundaries and independent framework SDKs; not implemented API guarantees.
 - [Desktop loader and release instructions](https://github.com/swooping-mods/moon-sweepers-mod-loader/blob/main/CONTRIBUTING.md).
 
@@ -27,7 +28,7 @@ python3 tools/check.py
 python3 tools/export.py
 ```
 
-Authors must supply explicit game compatibility hashes. The SDK never invents compatibility pins. The packager writes hashes for every payload file and refuses to overwrite a different archive. SDK ZIPs and checksum files go to ignored `artifacts/`.
+Legacy and managed authors supply explicit game hashes. Native v8 authors may instead declare game adapter capabilities and framework requirements; supplied v8 hashes remain extra restrictions. The SDK never invents compatibility pins or future-game support. The packager writes hashes for every payload file and refuses to overwrite a different archive. SDK ZIPs and checksum files go to ignored `artifacts/`.
 
 Consumers pin a reviewed API snapshot using `python3 tools/export.py --snapshot /path/to/consumer/vendored/api`; an existing snapshot with different bytes is rejected. The snapshot records every included file's SHA-256 and API version. Consumers commit it and review API updates in a PR.
 
