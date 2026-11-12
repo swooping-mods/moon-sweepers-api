@@ -29,6 +29,18 @@ game-thread frame admission, scaled Unity time/delta and zero-extended unsigned3
 frame count. Declared startup lookup and later service admission are separate.
 V8 consumers must not dereference legacy borrowed walker arguments.
 
+The next source contract is `unity.time-scale` ABI 1: independent 16-byte table
+and 16-byte sample (`size`, `abi`, `float time_scale`, zero `reserved`). It reads
+the configured Unity timeScale already bound by Sound, including pause at zero;
+it does not infer scale from clock delta or expose a setter. Sampling requires
+the same admitted game-thread frame, valid caller size/ABI/reserved and a finite
+nonnegative result. Failure preserves caller storage. Its table validator accepts
+compatible prefixes and rejects missing callbacks. Clock ABI1 and v8 context
+layouts stay unchanged. A header is not a runtime offer: the loader candidate
+does not advertise this on the production profile before its deferred gates.
+Sound still has raw world/audio bindings and keeps its legacy pins and independently
+versioned framework tables. Managed plugins require a separate future contract.
+
 Reviewed profile digests cover every canonical JSON field except `digest`,
 including physical bindings/layouts. Profiles require all three original game
 hashes. Actual runtime adapter metadata must advertise the same digest and exact
@@ -64,3 +76,11 @@ provider reporting, physical binding mutation and scoped evidence invalidation.
 It verifies exact legacy/v2 wire bytes and compiles/executes a standalone header
 consumer. Host checks do not qualify another real game build, migrated framework,
 managed forward compatibility, world/save behavior or multiplayer.
+
+The 2026-11-12 source pass adds focused synthetic `test_time_scale_contract.py`
+admission cases and extends the standalone C header consumer. The pure Python
+cases can run without compilation; the C consumer, full `tools/check.py`, SDK
+export, loader host/native fixtures and real engine sampling remain deferred
+while the workstation is in use. Later gates must verify descriptor/output
+atomicity, no engine calls on refused admission, pause/resume and profile offer
+identity before enabling the candidate. No new runtime qualification is claimed.

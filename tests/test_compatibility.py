@@ -246,7 +246,19 @@ class CompatibilityChecks(unittest.TestCase):
 
     def test_public_game_header_compiles_and_validates_the_broker_only_context(self):
         source = '''#include "moon_sweepers/game_adapter.h"
-int main(void){MoonModContextV8 context={0};return moon_mod_context_v8_valid(&context)||moon_game_clock_valid(0);}
+#include <assert.h>
+static int scale_sample(MoonGameTimeScaleSampleV1 *out){(void)out;return 0;}
+int main(void){
+    MoonModContextV8 context={0};
+    MoonGameTimeScaleV1 scale={sizeof(scale),MOON_GAME_TIME_SCALE_ABI,scale_sample};
+    assert(!moon_mod_context_v8_valid(&context)&&!moon_game_clock_valid(0));
+    assert(!moon_game_time_scale_valid(0)&&moon_game_time_scale_valid(&scale));
+    scale.size--;assert(!moon_game_time_scale_valid(&scale));
+    scale.size=sizeof(scale)+8;assert(moon_game_time_scale_valid(&scale));
+    scale.abi++;assert(!moon_game_time_scale_valid(&scale));
+    scale.abi=MOON_GAME_TIME_SCALE_ABI;scale.sample=0;assert(!moon_game_time_scale_valid(&scale));
+    return 0;
+}
 '''
         with tempfile.TemporaryDirectory() as temporary:
             root = Path(temporary); path = root / "consumer.c"; path.write_text(source)
