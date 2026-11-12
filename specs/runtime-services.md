@@ -74,6 +74,24 @@ targets and retain snapshots, restore while the claim is held, then release.
 Failed restoration retains the claim for retry. There is no implicit expiry on
 world change. Camera game-state capture/restoration remains provider-owned.
 
+Failed begin now retains API/owner/token if both read-only capture and release
+fail. Acknowledged release clears every session field. Reentry with a retained
+token rejects before another claim; finish retains ownership on failed restore
+or release. Partial capture cleanup must perform no writes from an incomplete
+snapshot. This is the shared repair from Workshop vehicle `14042b0` /
+construction `f02895c`, with identical helper bytes and no ABI/layout change.
+Its public production-header regression source injects capture, restore and
+release failures, verifies retry/reentry and acknowledged-clear behavior. The
+new `InputRegistryChecks.test_failed_capture_retains_session_until_acknowledged_cleanup`
+runner is authored but compilation/execution remains deferred.
+
+Consumer cleanup is a required integration dependency: Zoom `6b5b127`, Vehicle
+First Person `876ed47`, Courier `5b9878c`, Drone `ce1f58b`/`1343858`, and Survey
+`0a4f4d0`. Integrate the shared Workshop helper repair once, preserving those
+owning changes; the inline helper alone does not make old consumers handle
+retained partial sessions. Standalone and Workshop mirrors retain their own
+content pins and SDK versions. This repair grants no new game capability.
+
 ### Native startup plan
 
 `runtime_plan.encode` emits `MoonLab/runtime-plan.bin` from a validated selected

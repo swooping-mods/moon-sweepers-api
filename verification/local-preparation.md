@@ -689,3 +689,24 @@ Later API gates are `PYTHONPATH=python:tests python3 -m unittest
 (on one command line), then the complete `python3 tools/check.py` and
 `python3 tools/export.py` in an admitted execution window. Loader and framework
 owning specs record their additional candidate promotion and runtime gates.
+
+
+## Camera owner and pin repair — 2026-11-12
+
+The API-owned camera session helper now matches the agreed Workshop vehicle
+14042b0 / construction f02895c repair byte-for-byte (SHA256
+4e658254786040fb7faf153b0abe81fdf7990bb5a3d1a760bbfeceef020a3f57).
+A failed capture with refused release retains its API/owner/token for explicit
+finish/retry. No ABI/layout, capability advertisement or game pin changed.
+The public production-header regression source derives from the agreed
+first-party failure fixture with only its include adapted to the API path.
+It covers capture/release double failure, blocked reentry, failed restore/release
+retry, idempotent finish and field clearing after acknowledged release.
+
+Tiny AST parse and exact helper-hash/byte checks pass. The new C fixture and
+its Clang/GCC sanitizer runner were not compiled or executed. The focused later
+gate is `PYTHONPATH=tests python3 -m unittest test_input_registry.InputRegistryChecks.test_failed_capture_retains_session_until_acknowledged_cleanup`,
+then the existing camera host fixture and full API gate in an admitted window.
+No builds, packaging, game/GUI, assets, profiling or publication occurred.
+The owning runtime spec lists the required Zoom/Vehicle/Courier/Drone/Survey
+cleanup commits; this source repair alone does not qualify or migrate consumers.
