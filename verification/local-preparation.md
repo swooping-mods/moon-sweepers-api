@@ -662,3 +662,30 @@ combinations and co-op remain unqualified. No release or publication was made.
 Compact integration receipts are retained by the owning loader under
 `.local/forward-compat/`, with results also appended to the workshop's existing
 adapter verification record.
+
+
+## Adapter source preparation — 2026-11-12
+
+Added the independent `unity.time-scale` ABI1 header contract without changing
+clock/context layouts, native v8 package admission or legacy/managed game pins.
+A semantic table does not migrate Sound's remaining raw world/audio bindings.
+The initial loader candidate is intentionally unadvertised on the production
+profile pending its own compiled/native/engine gates. Framework consumers keep
+their independently versioned contracts; managed forward compatibility needs
+its own explicit provider contract and is not conferred on old plugins.
+
+Four tiny pure Python checks pass (0.006s): synthetic time-scale admission,
+clock-only refusal, legacy managed relabel refusal, and saved building registry
+identity/collision validation. `git diff --check` passes. Kind194 is reserved
+for `basketball-hoop.recreation.hoop`; this does not activate a provider.
+
+The standalone C consumer was extended but was not compiled or executed.
+`python3 tools/check.py`, SDK ZIP export, all native fixtures/builds/packages,
+interop generation, game/Wine/Proton/Steam runs and runtime/co-op qualification
+are deferred under the workstation-use constraint. No dependencies/downloads,
+canonical checkout updates, user selection changes or publication occurred.
+Later API gates are `PYTHONPATH=python:tests python3 -m unittest
+ test_compatibility.CompatibilityChecks.test_public_game_header_compiles_and_validates_the_broker_only_context`
+(on one command line), then the complete `python3 tools/check.py` and
+`python3 tools/export.py` in an admitted execution window. Loader and framework
+owning specs record their additional candidate promotion and runtime gates.
