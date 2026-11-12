@@ -44,6 +44,10 @@ load-order indexes. Namespaced definition keys are separate from instance IDs
 and display categories. New keys follow `modid.category.item`; existing shorter
 namespaced keys remain valid.
 
+Kind 194 and `basketball-hoop.recreation.hoop` are reserved for Basketball Hoop
+in the 2026-11-12 source phase. Reservation coordinates persistent identity;
+it does not activate a provider or qualify native placement, saves or co-op.
+
 The runtime implementation remains in the owning development project's Build
 Menu Framework 0.2.0. It extends actual native definition/catalog arrays and the
 in-memory native reader maximum, keeping ordinary saved records and all existing

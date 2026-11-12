@@ -76,6 +76,14 @@ int main(void){return item.kind!=384;}
         build_items.validate_registry(registry)
         pole = next(e for e in registry["entries"] if e["mod"] == "manual-power-poles")
         self.assertEqual((pole["kind"], pole["key"]), (193, "manual-power-poles.power-pole"))
+        hoop = next(e for e in registry["entries"] if e["mod"] == "basketball-hoop")
+        self.assertEqual((hoop["kind"], hoop["key"], hoop["status"]),
+                         (194, "basketball-hoop.recreation.hoop", "reserved"))
+        reserved_collision = copy.deepcopy(registry)
+        reserved_collision["entries"].append({"mod": "another", "kind": 194,
+                                               "key": "another.recreation.hoop", "status": "reserved"})
+        with self.assertRaisesRegex(ValueError, "Duplicate building reservation"):
+            build_items.validate_registry(reserved_collision)
         changed = copy.deepcopy(registry)
         changed["entries"][0]["status"] = "retired"
         changed["entries"].append({"mod": "another", "kind": 193, "key": "another.power.item", "status": "active"})
