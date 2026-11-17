@@ -710,3 +710,37 @@ then the existing camera host fixture and full API gate in an admitted window.
 No builds, packaging, game/GUI, assets, profiling or publication occurred.
 The owning runtime spec lists the required Zoom/Vehicle/Courier/Drone/Survey
 cleanup commits; this source repair alone does not qualify or migrate consumers.
+
+
+## Package intake review and API 0.7.1 — 2026-11-17
+
+Corrected malformed JSON/identity validation and the pathname replacement gap
+between archive validation, hashing and extraction. Import now uses one bounded
+private regular-file snapshot and streams member hashing/extraction; package
+SHA-256, ZIP CRC and installed-tree verification remain mandatory. Regression
+checks replace the actual download after validation, reject malformed roots and
+identity types, wrong payload hashes, actual oversize input and a POSIX FIFO.
+
+The complete API check passes **68 tests**, no skips/exclusions, using the
+existing reviewed SDK through `MOON_API_DOTNET` for the C#→native client check.
+The initial default-PATH run passed 65 baseline tests with that optional check
+skipped; supplying the installed SDK closed the gap. API snapshot export (41
+files) and SDK ZIP export pass. Source review and `git diff --check` pass.
+
+`tools/benchmark_packages.py` compares a retained baseline Python tree with the
+candidate on the same deterministic 16 MiB payload, in stored and deflated ZIPs.
+Each sample gates exact manifest and installed-file parity; timing runs have no
+allocation instrumentation. Seven-repeat initial medians (milliseconds) were
+stored examine **60.4→62.0**, stored import **246.6→217.5**, deflated examine
+**72.7→84.6**, deflated import **277.0→256.9**. Host load and cache order limit
+latency conclusions: examination did not improve, so no universal speedup is
+claimed. Three separate traced runs on the deflated archive reduced peak Python
+allocation from about **64.5 MB to 1.23 MB** for examine and **4.64 MB** for import.
+These are traced allocations, not process RSS. The compressed snapshot adds
+bounded temporary disk I/O/storage and is included in import costs.
+
+Exact archive/source hashes, raw samples and Python identity are in ignored
+`artifacts/review-*-{time,memory}.json` and the retained baseline folder. The
+benchmark remains independently runnable against an explicit Python root.
+No package payload was executed. Game frame time, native Windows gameplay,
+real co-op and target-device memory are unqualified by this host-only result.

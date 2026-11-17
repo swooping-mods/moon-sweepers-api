@@ -2,12 +2,14 @@
 import copy
 import hashlib
 import json
+import os
 from pathlib import Path
 import struct
 import subprocess
 import sys
 import tempfile
 import unittest
+from unittest.mock import patch
 import zipfile
 import zlib
 
@@ -36,6 +38,68 @@ def manifest(name="example"):
 
 
 class ApiChecks(unittest.TestCase):
+    def test_malformed_manifest_shapes_raise_validation_errors(self):
+        for value in (None, [], True, 1, 'manifest'):
+            with self.subTest(value=value), self.assertRaises(ValueError):
+                packages.validate(value)
+        for field in ('kind', 'abi', 'entry', 'icon'):
+            for value in (None, [], {}, 1):
+                with self.subTest(field=field, value=value), self.assertRaises(ValueError):
+                    packages.validate({**manifest(), field: value})
+
+    def test_install_uses_validated_snapshot_after_download_replacement(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            payload = root / 'payload'
+            payload.mkdir()
+            (payload / 'mod.dll').write_bytes(b'original inert payload')
+            (payload / 'icon.png').write_bytes(PNG)
+            description = root / 'manifest.json'
+            description.write_text(json.dumps(manifest()))
+            download = pack(description, payload, root / 'original.msmod')
+            original_hash = hashlib.sha256(download.read_bytes()).hexdigest()
+            description.write_text(json.dumps(manifest('replacement')))
+            (payload / 'mod.dll').write_bytes(b'replacement inert payload')
+            replacement = pack(description, payload, root / 'replacement.msmod')
+            examine = packages._examine_archive
+            def replace_after_validation(archive):
+                result = examine(archive)
+                replacement.replace(download)
+                return result
+            with patch.object(packages, '_examine_archive', side_effect=replace_after_validation):
+                name, installed = packages.install(download, root / 'data')
+            self.assertEqual(installed['id'], 'example')
+            self.assertEqual(name, 'example/1.0.0-' + original_hash[:16])
+            folder = root / 'data/library' / name
+            self.assertEqual((folder / 'mod.dll').read_bytes(), b'original inert payload')
+            self.assertEqual(packages.installed(folder), installed)
+            self.assertFalse(list((root / 'data').rglob('.intake-*')))
+
+    def test_streamed_intake_rejects_actual_size_and_corrupt_payload(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            path = root / 'bad.msmod'
+            path.write_bytes(b'x' * 1025)
+            with patch.object(packages, 'MAX_BYTES', 1024), self.assertRaisesRegex(ValueError, '64 MiB'):
+                packages.install(path, root / 'data')
+            self.assertFalse((root / 'data').exists())
+            if hasattr(os, 'mkfifo'):
+                fifo = root / 'pipe.msmod'
+                os.mkfifo(fifo)
+                with self.assertRaisesRegex(ValueError, 'regular file'):
+                    packages.install(fifo, root / 'data')
+            value = manifest()
+            value['files'] = {'mod.dll': hashlib.sha256(b'expected').hexdigest(),
+                              'icon.png': hashlib.sha256(PNG).hexdigest()}
+            with zipfile.ZipFile(path, 'w') as archive:
+                archive.writestr('manifest.json', json.dumps(value))
+                archive.writestr('mod.dll', b'wrong')
+                archive.writestr('icon.png', PNG)
+            for action in (lambda: packages.examine(path), lambda: packages.install(path, root / 'data')):
+                with self.assertRaisesRegex(ValueError, 'checksum mismatch'):
+                    action()
+            self.assertFalse((root / 'data').exists())
+
     def test_public_headers_compile_without_loader(self):
         source = '#include "moon_sweepers/hooks.h"\nint main(void) {return moon_hook_api_valid(0);}\n'
         with tempfile.TemporaryDirectory() as directory:
