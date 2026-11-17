@@ -744,3 +744,20 @@ Exact archive/source hashes, raw samples and Python identity are in ignored
 benchmark remains independently runnable against an explicit Python root.
 No package payload was executed. Game frame time, native Windows gameplay,
 real co-op and target-device memory are unqualified by this host-only result.
+
+## Compatibility review corrections — 2026-11-17
+
+SDK 0.7.3 fixes missing dependency and unavailable runtime assessments, requires
+observed managed readiness, rejects lookup-key/manifest identity mismatches and
+attributes resolver cycles/conflicts to their owners. Graph validation precedes
+target admission, so an unknown game build cannot suppress definite selection
+failures. Provider failures propagate to consumers while unrelated matching
+mods keep their own assessment. Five focused regressions cover these cases.
+
+The full `tools/check.py` gate passes **74 tests**, with no skips/exclusions,
+using the existing reviewed SDK through `MOON_API_DOTNET`. The 41-file consumer
+export passes and is integrated by the standalone loader. Logs:
+`artifacts/review-api-final.log`, `artifacts/checks.json`; snapshot:
+`artifacts/review-api-073/`. No downloads, game execution, native Windows
+gameplay, new future-build support or co-op qualification follows from these
+host checks.

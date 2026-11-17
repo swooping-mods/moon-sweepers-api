@@ -47,6 +47,50 @@ def target(row=None):
 
 
 class CompatibilityChecks(unittest.TestCase):
+    def test_missing_dependency_is_definite_on_known_and_unknown_builds(self):
+        broken,neighbor=modern('broken'),modern('neighbor')
+        broken['requires']=['absent-framework']
+        for change in ({},{'game_profile':None}):
+            with self.subTest(change=change):
+                result=self.evaluate({'broken':broken,'neighbor':neighbor},**change)
+                self.assertEqual(result['status'],'incompatible')
+                self.assertEqual(result['mods']['broken']['assessment_status'],'incompatible')
+                self.assertIn('dependency-missing',[r['code'] for r in result['mods']['broken']['reasons']])
+                expected='unknown' if change else 'requirements-matched'
+                self.assertEqual(result['mods']['neighbor']['assessment_status'],expected)
+
+    def test_cycles_and_conflicts_keep_their_owners_on_an_unknown_build(self):
+        for cycle in (True,False):
+            a,b,neighbor=modern('a'),modern('b'),modern('neighbor')
+            if cycle:a['requires']=['b'];b['requires']=['a']
+            else:a['conflicts']=['b']
+            result=self.evaluate({'a':a,'b':b,'neighbor':neighbor},game_profile=None)
+            self.assertEqual(result['status'],'incompatible')
+            self.assertEqual(result['mods']['a']['assessment_status'],'incompatible')
+            self.assertEqual(result['mods']['b']['assessment_status'],'incompatible')
+            self.assertEqual(result['mods']['neighbor']['assessment_status'],'unknown')
+
+    def test_runtime_failure_propagates_without_blame_for_unrelated_mods(self):
+        legacy,consumer,neighbor=manifest('legacy'),modern('consumer'),modern('neighbor')
+        consumer['requires']=['legacy']
+        result=self.evaluate({'legacy':legacy,'consumer':consumer,'neighbor':neighbor},
+                             available_runtimes={('native',compat.V8)})
+        self.assertEqual(result['mods']['legacy']['assessment_status'],'incompatible')
+        self.assertEqual(result['mods']['consumer']['assessment_status'],'incompatible')
+        self.assertEqual(result['mods']['neighbor']['assessment_status'],'requirements-matched')
+
+    def test_manifest_lookup_key_cannot_replace_its_identity(self):
+        result=self.evaluate({'alias':modern('real-id')})
+        self.assertFalse(result['allowed'])
+        self.assertEqual(result['mods']['alias']['assessment_status'],'incompatible')
+
+    def test_managed_framework_needs_an_observed_readiness_abi(self):
+        mod=managed('managed');mod['runtime_api_abi']=1
+        for missing in (None,0,True,2):
+            result=self.evaluate({'managed':mod},runtime_readiness_abi=missing,
+                                 available_runtimes={(mod['kind'],mod['abi'])})
+            self.assertEqual(result['mods']['managed']['assessment_status'],'incompatible')
+
     def test_individual_assessment_survives_an_incompatible_neighbor(self):
         portable, legacy = modern(), manifest('legacy')
         result = self.evaluate({portable['id']: portable, legacy['id']: legacy}, profile('fixture.later', 'b'))

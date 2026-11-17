@@ -54,6 +54,12 @@ dependency order and full content selection digest. `resolve` calls the same
 admission helper. Existing framework ownership, optional-provider rules, cycles,
 conflicts, capacities and archive integrity remain. Incompatible providers are
 propagated to consumers even when a consumer has no direct vanilla needs.
+Graph validation precedes target admission: an unknown game build cannot hide
+missing selected dependencies, cycles or hook conflicts. Resolver-owned failures
+identify the affected packages; runtime availability and managed readiness also
+contribute to each package's assessment and propagate through its consumers.
+The selected lookup key must equal the manifest identity. Unrelated matching
+packages keep their own assessment when another package blocks the selection.
 
 Statuses distinguish unknown, incompatible and requirements-matched. Verified
 status requires trusted evidence with explicit boolean success bound to all selected manifest/payload digests,
