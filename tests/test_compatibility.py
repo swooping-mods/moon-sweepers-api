@@ -47,6 +47,19 @@ def target(row=None):
 
 
 class CompatibilityChecks(unittest.TestCase):
+    def test_individual_assessment_survives_an_incompatible_neighbor(self):
+        portable, legacy = modern(), manifest('legacy')
+        result = self.evaluate({portable['id']: portable, legacy['id']: legacy}, profile('fixture.later', 'b'))
+        self.assertFalse(result['allowed'])
+        self.assertEqual(result['mods']['portable-feature']['assessment_status'], 'requirements-matched')
+        self.assertTrue(result['mods']['portable-feature']['blocked_by_selection'])
+        self.assertFalse(result['mods']['portable-feature']['allowed'])
+        self.assertEqual(result['mods']['legacy']['assessment_status'], 'incompatible')
+        unknown = self.evaluate({portable['id']: portable, legacy['id']: legacy}, game_profile=None)
+        self.assertFalse(unknown['allowed'])
+        self.assertEqual(unknown['mods']['portable-feature']['assessment_status'], 'unknown')
+        self.assertEqual(unknown['mods']['legacy']['assessment_status'], 'incompatible')
+
     def evaluate(self, values, row=None, **change):
         kwargs = target(row)
         kwargs.update(change)

@@ -84,3 +84,5 @@ export, loader host/native fixtures and real engine sampling remain deferred
 while the workstation is in use. Later gates must verify descriptor/output
 atomicity, no engine calls on refused admission, pause/resume and profile offer
 identity before enabling the candidate. No new runtime qualification is claimed.
+
+Per-mod `assessment_status` records its own incompatible/unknown/matched result, while `status` and `allowed` retain collective selection admission. `blocked_by_selection` identifies a mod with no direct failure in a blocked selection. A matching neighbor is not labelled as probably broken solely because another selected mod fails. No new game/profile admission follows from these presentation fields.
